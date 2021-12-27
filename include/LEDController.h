@@ -58,7 +58,9 @@ bool display_solid_color(uint32_t value) {
 }
 
 bool turn_off() {
-    close_lua();
+    if(!config.is_solid_color && !config.is_segmented_color) {
+        close_lua();
+    }
 
     fill_solid(leds, config.num_leds, CRGB::Black);
     FastLED.show();
