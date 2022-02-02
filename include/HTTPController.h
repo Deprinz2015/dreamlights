@@ -17,6 +17,8 @@ void http_color_segment();
 
 void http_save_preset();
 
+void http_save_new_effect();
+
 void http_display_solid_color();
 
 void http_change_brightness();
@@ -171,6 +173,10 @@ void http_save_preset() {
     }
 
     http_send_error();
+}
+
+void http_save_new_effect() {
+
 }
 
 void http_send_response() {

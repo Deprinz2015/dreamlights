@@ -14,5 +14,6 @@
 #define ROUTE_CHANGE_SEGMENT "/segment"
 #define ROUTE_LOAD_PRESET "/load_preset"
 #define ROUTE_SAVE_PRESET "/save_preset"
+#define ROUTE_SAVE_NEW_EFFECT "/new_effect"
 
 #endif //MAINCODE_HTTPROUTES_H

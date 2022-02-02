@@ -80,6 +80,7 @@ void setup_server() {
     server.on(ROUTE_CHANGE_SEGMENT, HTTP_GET, http_color_segment);
     server.on(ROUTE_SAVE_PRESET, HTTP_GET, http_save_preset);
     server.on(ROUTE_LOAD_PRESET, HTTP_GET, http_load_preset);
+    server.on(ROUTE_SAVE_NEW_EFFECT, HTTP_GET, http_save_new_effect);
 
     server.begin();
 }

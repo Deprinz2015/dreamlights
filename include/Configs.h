@@ -305,6 +305,11 @@ void saveMainConfig(const MainConfig &config) {
     }
 }
 
+void save_new_effect(String id, String name, String script, String timer_names[], String timer_values[]) {
+    // TODO
+
+}
+
 String read_lua_script(const Effect &fx) {
     String filename = effect_file_template;
     filename.replace("{id}", fx.id);
