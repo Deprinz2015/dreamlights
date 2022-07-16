@@ -1,0 +1,8 @@
+//
+// Created by Niklas Koll on 16.07.22.
+//
+
+#ifndef MAINCODE_SEGMENTED_COLOR_H
+#define MAINCODE_SEGMENTED_COLOR_H
+
+#endif //MAINCODE_SEGMENTED_COLOR_H
