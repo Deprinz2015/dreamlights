@@ -26,8 +26,8 @@ add_custom_target(
 
 add_custom_target(
     Debug ALL
-    COMMAND platformio -c clion run --target debug "$<$<NOT:$<CONFIG:All>>:-e${CMAKE_BUILD_TYPE}>"
+    COMMAND platformio -c clion debug "$<$<NOT:$<CONFIG:All>>:-e${CMAKE_BUILD_TYPE}>"
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-add_executable(Z_DUMMY_TARGET ${SRC_LIST} lib/Config.cpp include/Config.h lib/Filehandler.cpp include/Filehandler.h include/CustomTypes/Clock.h include/CustomTypes/Effect.h include/CustomTypes/Segmented_Color.h include/CustomTypes/Color_Preset.h include/CustomTypes/Color_Preset_Key.h include/CustomTypes/Main_Config.h lib/HomeSpan/DEV_Identify.cpp include/HomeSpan/DEV_Identify.h lib/HomeSpan/DEV_LEDStrip.cpp include/HomeSpan/DEV_LEDStrip.h lib/HomeSpan/HomeSpanHandler.cpp include/HomeSpan/HomeSpanHandler.h include/Constants.h lib/LED_API.cpp include/LED_API.h lib/HTTP_API.cpp include/HTTP_API.h lib/Lua/LuaAPI.cpp include/Lua/LuaAPI.h lib/Lua/LuaMain.cpp include/Lua/LuaMain.h lib/WebServer.cpp include/WebServer.h include/Globals.h)
+add_executable(Z_DUMMY_TARGET ${SRC_LIST})
