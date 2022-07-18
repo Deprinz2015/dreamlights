@@ -4,14 +4,14 @@
 
 #include "HomeSpan/HomeSpanHandler.h"
 
-void wificonnect() {
+void HomeSpanHandler::wificonnect() {
     wm.autoConnect(WIFI_SSID, WIFI_PASS);
 
     homeSpan.setWifiCredentials(wm.getWiFiSSID().c_str(), wm.getWiFiPass().c_str());
     ESP.restart();
 }
 
-void setup_homespan(void(*wifiCallback)()) {
+void HomeSpanHandler::setup_homespan(void(*wifiCallback)()) {
     homeSpan.enableOTA();
     homeSpan.setApFunction(wificonnect);
     homeSpan.enableAutoStartAP();
@@ -29,4 +29,8 @@ void setup_homespan(void(*wifiCallback)()) {
     new SpanAccessory();
     new DEV_Identify(name, "Nako", sn, model, "0.9", 3);
     new DEV_LED_Strip();
+}
+
+void HomeSpanHandler::homespan_loop() {
+    homeSpan.poll();
 }

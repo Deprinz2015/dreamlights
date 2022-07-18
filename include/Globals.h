@@ -6,7 +6,13 @@
 #define MAINCODE_GLOBALS_H
 
 #include "WiFiManager.h"
+#include "CustomTypes/Main_Config.h"
+#include "LEDServer.h"
+#include "LED_API.h"
 
+WebServer server(80);
 WiFiManager wm;
+
+MainConfig config;
 
 #endif //MAINCODE_GLOBALS_H

@@ -11,7 +11,10 @@
 #include "Constants.h"
 #include "Globals.h"
 
-void wificonnect();
-void setup_homespan(void(*)());
+struct HomeSpanHandler {
+    static void wificonnect();
+    static void setup_homespan(void(*)());
+    static void homespan_loop();
+};
 
 #endif //MAINCODE_HOMESPANHANDLER_H
