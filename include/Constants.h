@@ -53,4 +53,11 @@ const char *name = "Dreamlight-WS2812B";
 
 //--------------------------------------------------------------------------------------------------
 
+// Lua Library Names
+
+#define LUA_LED_ARRAY_METATABLE "led_array.mt"
+#define LUA_LED_ARRAY_LIB_NAME "leds"
+
+//--------------------------------------------------------------------------------------------------
+
 #endif //MAINCODE_CONSTANTS_H

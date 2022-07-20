@@ -4,6 +4,8 @@
 
 #include "HomeSpan/DEV_LEDStrip.h"
 
+// TODO - implement new LED-API
+
 DEV_LED_Strip::DEV_LED_Strip() {
     power = new Characteristic::On();
     h = new Characteristic::Hue(0);

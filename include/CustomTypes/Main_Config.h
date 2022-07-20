@@ -8,7 +8,7 @@
 #include "Arduino.h"
 
 struct MainConfig {
-    int num_leds;
+    uint16_t num_leds;
     uint8_t max_brightness;
     uint8_t current_brightness;
     String last_id;

@@ -4,6 +4,7 @@
 
 #include "LEDServer.h"
 #include "Globals.h"
+#include "HTTP_API.h"
 
 void LEDServer::setup() {
     // TODO Insert all Server Routes here

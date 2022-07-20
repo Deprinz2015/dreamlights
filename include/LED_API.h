@@ -15,7 +15,7 @@
 
 struct LED_API {
     CRGB* leds;
-    int numLeds;
+    uint16_t numLeds;
     Clock clock[10];
     uint8_t numClocks;
     Effect effect;

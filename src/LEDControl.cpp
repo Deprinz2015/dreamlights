@@ -19,6 +19,7 @@
 #include "CustomTypes/Effect.h"
 #include "CustomTypes/Main_Config.h"
 #include "CustomTypes/Segmented_Color.h"
+#include "CustomTypes/LED_Array.h"
 
 LED_API *leds;
 

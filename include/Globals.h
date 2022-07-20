@@ -9,10 +9,13 @@
 #include "CustomTypes/Main_Config.h"
 #include "LEDServer.h"
 #include "LED_API.h"
+#include "Lua/LuaMain.h"
 
 WebServer server(80);
 WiFiManager wm;
 
 MainConfig config;
+
+LuaHandler lua;
 
 #endif //MAINCODE_GLOBALS_H
