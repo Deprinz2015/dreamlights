@@ -13,15 +13,15 @@
 #include "CustomTypes/Main_Config.h"
 
 struct Config {
-    uint8_t loadRefreshRates(const Effect &fx, Clock *clocks);
-    int loadEffectList(Effect *&effects);
-    int loadPresetList(Color_Preset_Key *&presets);
-    bool loadPreset(const Color_Preset_Key& key, Color_Preset *out);
-    void loadMainConfig(MainConfig *config);
-    String read_lua_script(const Effect &fx);
+    static uint8_t loadRefreshRates(const Effect &fx, Clock *clocks);
+    static int loadEffectList(Effect *&effects);
+    static int loadPresetList(Color_Preset_Key *&presets);
+    static bool loadPreset(const Color_Preset_Key& key, Color_Preset *out);
+    static void loadMainConfig(MainConfig *config);
+    static String read_lua_script(const Effect &fx);
 
-    void saveMainConfig(const MainConfig &config);
-    void saveColorPreset(String name, String id, Color_Preset preset);
+    static void saveMainConfig(const MainConfig &config);
+    static void saveColorPreset(String name, String id, Color_Preset preset);
 };
 
 #endif //MAINCODE_CONFIG_H

@@ -5,6 +5,7 @@
 #include "Lua/LuaMain.h"
 #include "Lua/LuaAPI.h"
 #include "Constants.h"
+#include "Config.h"
 
 void LuaHandler::open_lua(CRGB *leds, uint16_t num_leds) {
     L = luaL_newstate();
@@ -23,9 +24,7 @@ void LuaHandler::close_lua() {
 }
 
 bool LuaHandler::load_lua_script(const Effect &fx) {
-    // TODO
-    String script = ""; //read_lua_script(fx)
-
+    String script = Config::read_lua_script(fx);
     return luaL_loadstring(L, script.c_str()) || lua_pcall(L, 0, 0, 0);
 }
 
