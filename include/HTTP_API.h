@@ -21,6 +21,10 @@ struct HTTP_API {
     static void set_power();
 
     static void send_response(int code, const String &message);
+
+private:
+    static bool getUrlArgument(const String &arg, String *value);
+    static String getUrlArgumentWithoutCheck(const String &arg);
 };
 
 #endif //MAINCODE_HTTP_API_H

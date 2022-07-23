@@ -25,15 +25,13 @@
 #include "CustomTypes/Segmented_Color.h"
 #include "CustomTypes/LED_Array.h"
 
-LED_API leds;
-
 void setup_server() {
     LEDServer::setup();
     LEDServer::begin();
 }
 
 void setup_leds() {
-    leds.init();
+    leds = LED_API();
 }
 
 void setup() {

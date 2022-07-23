@@ -9,6 +9,7 @@
 #include "WiFiManager.h"
 #include "CustomTypes/Main_Config.h"
 #include "Lua/LuaMain.h"
+#include "LED_API.h"
 
 extern WebServer server;
 extern WiFiManager wm;
@@ -16,5 +17,7 @@ extern WiFiManager wm;
 extern MainConfig config;
 
 extern LuaHandler lua;
+
+extern LED_API leds;
 
 #endif //MAINCODE_GLOBALS_H

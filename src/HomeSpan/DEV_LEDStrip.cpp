@@ -6,8 +6,6 @@
 #include "Globals.h"
 #include "LED_API.h"
 
-// TODO - implement new LED-API
-
 DEV_LED_Strip::DEV_LED_Strip(LED_API *ledApi) {
     power = new Characteristic::On();
     h = new Characteristic::Hue(0);
@@ -36,8 +34,8 @@ boolean DEV_LED_Strip::update() {
         colorUpdated = true;
     }
     if (v->updated()) {
-        auto val = v->getNewVal<float>();
-        ledApi->setBrightness(val / 100);
+        auto val = v->getNewVal<uint8_t>();
+        ledApi->setBrightness(val);
     }
 
     if (colorUpdated) {
@@ -59,7 +57,7 @@ void DEV_LED_Strip::loop() {
     }
 
     switch (ledApi->toUpdateHomespan) {
-        case UPDATE_ON: {
+        case UPDATE_POWER: {
             power->setVal(ledApi->turnedOn);
             break;
         }

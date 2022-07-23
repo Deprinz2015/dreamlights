@@ -10,7 +10,7 @@
 
 struct Color_Preset {
     uint16_t segment_amount;
-    Segmented_Color *segments;
+    struct Segmented_Color *segments;
 };
 
 #endif //MAINCODE_COLOR_PRESET_H

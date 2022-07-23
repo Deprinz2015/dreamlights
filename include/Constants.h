@@ -37,7 +37,7 @@
 // Status Constants for HomeSpan controlling
 
 #define NO_UPDATE (-1)
-#define UPDATE_ON 1
+#define UPDATE_POWER 1
 #define UPDATE_COLOR 2
 #define UPDATE_BRIGHTNESS 3
 
@@ -96,5 +96,16 @@ extern const char *effect_file_template;
 #define MAINCONFIG_SEGMENTED_PRESET_ID "NULL"
 
 //--------------------------------------------------------------------------------------------------
+
+// HTTP-Routes
+
+#define ROUTE_EFFECT "/effect"
+#define ROUTE_POWER "/power"
+#define ROUTE_CHANGE_COLOR "/color"
+#define ROUTE_CHANGE_BRIGHTNESS "/brightness"
+#define ROUTE_CHANGE_SEGMENT "/segment"
+#define ROUTE_LOAD_PRESET "/load_preset"
+#define ROUTE_SAVE_PRESET "/save_preset"
+#define ROUTE_SAVE_NEW_EFFECT "/new_effect"
 
 #endif //MAINCODE_CONSTANTS_H

@@ -10,3 +10,5 @@ WiFiManager wm;
 MainConfig config;
 
 LuaHandler lua;
+
+LED_API leds;
