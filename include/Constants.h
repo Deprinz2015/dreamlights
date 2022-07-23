@@ -67,4 +67,34 @@ extern const char *name;
 
 //--------------------------------------------------------------------------------------------------
 
+// Size for StaticJsonObject
+
+#define STATIC_JSON_OBJ_SIZE 250
+
+//--------------------------------------------------------------------------------------------------
+
+// Dateinamen für Config-Dateien
+
+extern const char *main_config_file_name;
+extern const char *effect_list_file_name;
+extern const char *preset_list_file_name;
+extern const char *preset_file_template;
+extern const char *effect_config_template;
+extern const char *effect_file_template;
+
+//--------------------------------------------------------------------------------------------------
+
+// Default Werte für MainConfig
+
+#define MAINCONFIG_NUM_LEDS 300
+#define MAINCONFIG_MAX_BRIGHTNESS 150
+#define MAINCONFIG_CURRENT_BRIGHTNESS 100
+#define MAINCONFIG_LAST_ID "1"
+#define MAINCONFIG_IS_SOLID_COLOR false
+#define MAINCONFIG_IS_SEGMENTED_COLOR false
+#define MAINCONFIG_COLOR 0xffffff
+#define MAINCONFIG_SEGMENTED_PRESET_ID "NULL"
+
+//--------------------------------------------------------------------------------------------------
+
 #endif //MAINCODE_CONSTANTS_H

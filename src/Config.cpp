@@ -3,3 +3,179 @@
 //
 
 #include "Config.h"
+#include "Filehandler.h"
+#include "Constants.h"
+
+uint8_t Config::loadRefreshRates(const Effect &fx, Clock *clocks) {
+    String filename = effect_config_template;
+    filename.replace("{id}", String(fx.id));
+
+    JsonObject obj;
+    if (!FileHandler::get_json_dynamic_doc(filename.c_str(), 1024, &obj)) {
+        return 0;
+    }
+
+    uint8_t size = obj.size();
+    uint8_t index = 0;
+    for (JsonPair element: obj) {
+        clocks[index].name = element.key().c_str();
+        clocks[index].timer.setPeriod(element.value().as<uint32_t>());
+
+        index++;
+    }
+    return size;
+}
+
+int Config::loadEffectList(Effect *&effects) {
+    JsonObject obj;
+    if (!FileHandler::get_json_dynamic_doc(effect_list_file_name, 6500, &obj)) {
+        return -1;
+    }
+
+    effects = new Effect[obj.size()];
+    int index = 0;
+    for (JsonPair pair: obj) {
+        effects[index].name = pair.value().as<String>();
+        effects[index].id = pair.key().c_str();
+
+        index++;
+    }
+    return index;
+}
+
+int Config::loadPresetList(Color_Preset_Key *&presets) {
+    JsonObject obj;
+    if (!FileHandler::get_json_dynamic_doc(preset_list_file_name, 6500, &obj)) {
+        return -1;
+    }
+
+    presets = new Color_Preset_Key[obj.size()];
+    int index = 0;
+    for (JsonPair pair: obj) {
+        presets[index].name = pair.key().c_str();
+        presets[index].id = pair.value().as<String>();
+
+        index++;
+    }
+    return index;
+}
+
+bool Config::loadPreset(const Color_Preset_Key &key, Color_Preset *out) {
+    String filename = preset_file_template;
+    filename.replace("{id}", key.id);
+
+    JsonArray obj;
+    if (!FileHandler::get_json_dynamic_doc<JsonArray>(filename.c_str(), 25000, &obj)) {
+        return false;
+    }
+
+    out->segment_amount = obj.size();
+    out->segments = new Segmented_Color[out->segment_amount];
+    int index = 0;
+    for (JsonObject item: obj) {
+        out->segments[index].color = item["color"];
+        out->segments[index].from = item["from"];
+        out->segments[index].to = item["to"];
+
+        index++;
+    }
+
+    return true;
+}
+
+void Config::loadMainConfig(MainConfig *config) {
+    JsonObject obj;
+    if (!FileHandler::get_json_static_doc(main_config_file_name, &obj)) {
+        config->num_leds = MAINCONFIG_NUM_LEDS;
+        config->max_brightness = MAINCONFIG_MAX_BRIGHTNESS;
+        config->current_brightness = MAINCONFIG_CURRENT_BRIGHTNESS;
+        config->last_id = MAINCONFIG_LAST_ID;
+        config->is_solid_color = MAINCONFIG_IS_SOLID_COLOR;
+        config->is_segmented_color = MAINCONFIG_IS_SEGMENTED_COLOR;
+        config->color = MAINCONFIG_COLOR;
+        config->segmented_preset_id = MAINCONFIG_SEGMENTED_PRESET_ID;
+        return;
+    }
+
+    config->num_leds = obj["num_leds"] | MAINCONFIG_NUM_LEDS;
+    config->max_brightness = obj["max_brightness"] | MAINCONFIG_MAX_BRIGHTNESS;
+    config->current_brightness = obj["current_brightness"] | MAINCONFIG_CURRENT_BRIGHTNESS;
+    config->last_id = obj["last_id"] | MAINCONFIG_LAST_ID;
+    config->is_solid_color = obj["is_solid_color"] | MAINCONFIG_IS_SOLID_COLOR;
+    config->is_segmented_color = obj["is_segmented_color"] | MAINCONFIG_IS_SEGMENTED_COLOR;
+    config->color = obj["color"] | MAINCONFIG_COLOR;
+    config->segmented_preset_id = obj["segmented_preset_id"] | MAINCONFIG_SEGMENTED_PRESET_ID;
+}
+
+String Config::read_lua_script(const Effect &fx) {
+    String filename = effect_file_template;
+    filename.replace("{id}", String(fx.id));
+
+    return FileHandler::read_file(filename.c_str());
+}
+
+void Config::saveMainConfig(const MainConfig &config) {
+    JsonObject obj;
+    obj["num_leds"] = config.num_leds;
+    obj["max_brightness"] = config.max_brightness;
+    obj["current_brightness"] = config.current_brightness;
+    obj["last_id"] = config.last_id;
+    obj["is_solid_color"] = config.is_solid_color;
+    obj["is_segmented_color"] = config.is_segmented_color;
+    obj["color"] = config.color;
+    obj["segmented_preset_id"] = config.segmented_preset_id;
+    FileHandler::save_json_doc(main_config_file_name, obj);
+}
+
+void Config::saveColorPreset(String name, String id, Color_Preset preset) {
+    // Save preset file
+    String filename = preset_file_template;
+    filename.replace("{id}", id);
+
+    DynamicJsonDocument doc(25000);
+
+    for (int i = 0; i < preset.segment_amount; i++) {
+        JsonObject segment = doc.createNestedObject();
+        segment["color"] = preset.segments[i].color;
+        segment["from"] = preset.segments[i].from;
+        segment["to"] = preset.segments[i].to;
+    }
+
+    FileHandler::save_json_doc(filename.c_str(), doc);
+
+    //--------------------------------------------------------------------------
+
+    // read preset list file and append new preset config
+
+    JsonObject presetObj;
+    Color_Preset_Key *presets;
+    int preset_amount;
+
+    if(!FileHandler::get_json_dynamic_doc(preset_list_file_name, 6500, &presetObj)) {
+        return;
+    }
+
+    presets = new Color_Preset_Key[presetObj.size() + 1];
+    int index = 0;
+    for(JsonPair item : presetObj) {
+        presets[index].name = item.value().as<String>();
+        presets[index].id = item.key().c_str();
+        index++;
+    }
+
+    presets[index].name = name;
+    presets[index].id = id;
+
+    preset_amount = index + 1;
+
+    //--------------------------------------------------------------------------
+
+    // save preset list file
+
+    DynamicJsonDocument presetListDoc(6500);
+    for(int i = 0; i < preset_amount; i++) {
+        presetListDoc[presets[i].id] = presets[i].name;
+    }
+
+    FileHandler::save_json_doc(preset_list_file_name, presetListDoc);
+}

@@ -16,3 +16,10 @@ const char *model = "WS2812B";
 const char *sn = "123-ABC-WS2812B";
 const char *name = "Dreamlight-WS2812B";
 #endif
+
+const char *main_config_file_name = "/config.cnf";
+const char *effect_list_file_name = "/fxlist.cnf";
+const char *preset_list_file_name = "/presets.cnf";
+const char *preset_file_template = "/Presets/preset{id}.cnf";
+const char *effect_config_template = "/Configs/fx{id}.cnf";
+const char *effect_file_template = "/Effects/fx{id}.lua";
