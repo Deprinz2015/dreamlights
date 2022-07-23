@@ -1,6 +1,8 @@
 #ifndef MAIN_INCLUDED
 #define MAIN_INCLUDED
 
+#include "Arduino.h"
+
 #include "HomeSpan.h"
 #include "FastLED.h"
 #include "WebServer.h"
@@ -12,6 +14,8 @@
 
 #include "HomeSpan/HomeSpanHandler.h"
 #include "LEDServer.h"
+#include "LED_API.h"
+#include "Globals.h"
 
 #include "CustomTypes/Clock.h"
 #include "CustomTypes/Color_Preset.h"
@@ -21,7 +25,7 @@
 #include "CustomTypes/Segmented_Color.h"
 #include "CustomTypes/LED_Array.h"
 
-LED_API *leds;
+LED_API leds;
 
 void setup_server() {
     LEDServer::setup();
@@ -29,14 +33,13 @@ void setup_server() {
 }
 
 void setup_leds() {
-    leds = new LED_API();
-    leds->init();
+    leds.init();
 }
 
 void setup() {
     Serial.println("Started Setup");
 
-    HomeSpanHandler::setup_homespan(setup_server);
+    HomeSpanHandler::setup_homespan(setup_server, &leds);
     setup_leds();
 
     Serial.println("Setup Complete");
@@ -45,8 +48,8 @@ void setup() {
 void loop() {
     HomeSpanHandler::homespan_loop();
 
-    if (!config.is_solid_color && !config.is_segmented_color && leds->turnedOn) {
-        leds->runPattern();
+    if (!config.is_solid_color && !config.is_segmented_color && leds.turnedOn) {
+        leds.runPattern();
     }
 
     LEDServer::handle();

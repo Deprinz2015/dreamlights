@@ -3,6 +3,10 @@
 //
 
 #include "HomeSpan/HomeSpanHandler.h"
+#include "HomeSpan.h"
+#include "HomeSpan/DEV_Identify.h"
+#include "HomeSpan/DEV_LEDStrip.h"
+#include "Globals.h"
 
 void HomeSpanHandler::wificonnect() {
     wm.autoConnect(WIFI_SSID, WIFI_PASS);
@@ -11,7 +15,7 @@ void HomeSpanHandler::wificonnect() {
     ESP.restart();
 }
 
-void HomeSpanHandler::setup_homespan(void(*wifiCallback)()) {
+void HomeSpanHandler::setup_homespan(void(*wifiCallback)(), LED_API *ledApi) {
     homeSpan.enableOTA();
     homeSpan.setApFunction(wificonnect);
     homeSpan.enableAutoStartAP();
@@ -28,7 +32,7 @@ void HomeSpanHandler::setup_homespan(void(*wifiCallback)()) {
 
     new SpanAccessory();
     new DEV_Identify(name, "Nako", sn, model, "0.9", 3);
-    new DEV_LED_Strip();
+    new DEV_LED_Strip(ledApi);
 }
 
 void HomeSpanHandler::homespan_loop() {

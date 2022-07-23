@@ -5,15 +5,11 @@
 #ifndef MAINCODE_HOMESPANHANDLER_H
 #define MAINCODE_HOMESPANHANDLER_H
 
-#include "HomeSpan.h"
-#include "HomeSpan/DEV_LEDStrip.h"
-#include "HomeSpan/DEV_Identify.h"
-#include "Constants.h"
-#include "Globals.h"
+#include "LED_API.h"
 
 struct HomeSpanHandler {
     static void wificonnect();
-    static void setup_homespan(void(*)());
+    static void setup_homespan(void(*)(), LED_API *ledApi);
     static void homespan_loop();
 };
 

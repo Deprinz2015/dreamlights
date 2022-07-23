@@ -10,7 +10,6 @@
 #include "CustomTypes/Effect.h"
 #include "CustomTypes/Color_Preset.h"
 #include "CustomTypes/Color_Preset_Key.h"
-#include "Globals.h"
 #include "Constants.h"
 
 struct LED_API {
@@ -21,6 +20,7 @@ struct LED_API {
     Effect effect;
     Color_Preset currentPreset = {0, nullptr};
     bool turnedOn = true;
+    int toUpdateHomespan = NO_UPDATE;
 
     void init();
 
@@ -29,7 +29,7 @@ struct LED_API {
     void set_power(bool power);
     void color_segment(uint32_t from, uint32_t to, uint32_t color);
     void save_preset(String name);
-    void setBrightness(double brightness);
+    void setBrightness(float brightness);
     void display_preset();
     void updatePreset();
 

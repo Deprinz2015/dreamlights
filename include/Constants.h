@@ -20,6 +20,13 @@
 
 //--------------------------------------------------------------------------------------------------
 
+// Definition of LED POWER-States
+
+#define POWER_ON true
+#define POWER_OFF false
+
+//--------------------------------------------------------------------------------------------------
+
 // WiFi Configuration for AP-Mode
 
 #define WIFI_SSID "Dreamlights"
@@ -39,16 +46,16 @@
 // Definition of HomeSpan-Device Parameters
 
 #ifdef SK9822_TYPE
-const char *host = "ledsk9822";
-const char *model = "SK9822";
-const char *sn = "123-ABC-SK9822";
-const char *name = "Dreamlight-SK9822";
+extern const char *host;
+extern const char *model;
+extern const char *sn;
+extern const char *name;
 #endif
 #ifdef WS2812B_TYPE
-const char *host = "ledws2812b";
-const char *model = "WS2812B";
-const char *sn = "123-ABC-WS2812B";
-const char *name = "Dreamlight-WS2812B";
+extern const char *host;
+extern const char *model;
+extern const char *sn;
+extern const char *name;
 #endif
 
 //--------------------------------------------------------------------------------------------------

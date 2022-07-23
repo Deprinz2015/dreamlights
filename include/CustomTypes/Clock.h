@@ -6,7 +6,7 @@
 #define MAINCODE_CLOCK_H
 
 #include "Arduino.h"
-#include "lib8tion.h"
+#include "FastLED.h"
 
 struct Clock {
     String name;

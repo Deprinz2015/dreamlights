@@ -5,7 +5,7 @@
 #ifndef MAINCODE_HTTP_API_H
 #define MAINCODE_HTTP_API_H
 
-#include "Globals.h"
+#include "Arduino.h"
 
 struct HTTP_API {
     static void load_preset();

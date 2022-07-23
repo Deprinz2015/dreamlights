@@ -3,9 +3,8 @@
 //
 
 #include "LED_API.h"
-
-#define POWER_ON true
-#define POWER_OFF false
+#include "Globals.h"
+#include "Constants.h"
 
 void LED_API::init() {
     leds = new CRGB[config.num_leds];
@@ -44,7 +43,7 @@ void LED_API::save_preset(String name) {
     // TODO
 }
 
-void LED_API::setBrightness(double brightness) {
+void LED_API::setBrightness(float brightness) {
     // TODO
 }
 
