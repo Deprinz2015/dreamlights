@@ -14,10 +14,10 @@ struct LuaHandler {
     LED_Array led_array;
 
     void open_lua(CRGB *leds, uint16_t num_leds);
-    void close_lua();
-    bool load_lua_script(const Effect &fx);
-    void luaopen_array(lua_State *L);
-    void run_lua_pattern(const char* name);
+    void close_lua() const;
+    bool load_lua_script(const Effect &fx) const;
+    static void luaopen_array(lua_State *L);
+    void run_lua_pattern(const char* name) const;
 };
 
 #endif //MAINCODE_LUAMAIN_H

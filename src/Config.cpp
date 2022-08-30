@@ -8,10 +8,11 @@
 
 uint8_t Config::loadRefreshRates(const Effect &fx, Clock *clocks) {
     String filename = effect_config_template;
+    Serial.println("Loading refresh rates for Effect #" + String(fx.name));
     filename.replace("{id}", String(fx.id));
 
-    JsonObject obj;
-    if (!FileHandler::get_json_dynamic_doc(filename.c_str(), 1024, &obj)) {
+    JsonObject obj{};
+    if (!FileHandler::get_json_dynamic_doc(filename.c_str(), 1024, obj)) {
         return 0;
     }
 
@@ -27,14 +28,15 @@ uint8_t Config::loadRefreshRates(const Effect &fx, Clock *clocks) {
 }
 
 int Config::loadEffectList(Effect *&effects) {
-    JsonObject obj;
-    if (!FileHandler::get_json_dynamic_doc(effect_list_file_name, 6500, &obj)) {
+    JsonObject obj{};
+    if (!FileHandler::get_json_dynamic_doc(effect_list_file_name, 6500, obj)) {
         return -1;
     }
-
     effects = new Effect[obj.size()];
+    Serial.println("created effects array of size " + String(obj.size()));
     int index = 0;
     for (JsonPair pair: obj) {
+        Serial.println("Pair: " + String(pair.key().c_str()));
         effects[index].name = pair.value().as<String>();
         effects[index].id = pair.key().c_str();
 
@@ -44,8 +46,8 @@ int Config::loadEffectList(Effect *&effects) {
 }
 
 int Config::loadPresetList(Color_Preset_Key *&presets) {
-    JsonObject obj;
-    if (!FileHandler::get_json_dynamic_doc(preset_list_file_name, 6500, &obj)) {
+    JsonObject obj{};
+    if (!FileHandler::get_json_dynamic_doc(preset_list_file_name, 6500, obj)) {
         return -1;
     }
 
@@ -64,8 +66,8 @@ bool Config::loadPreset(const Color_Preset_Key &key, Color_Preset *out) {
     String filename = preset_file_template;
     filename.replace("{id}", key.id);
 
-    JsonArray obj;
-    if (!FileHandler::get_json_dynamic_doc<JsonArray>(filename.c_str(), 25000, &obj)) {
+    JsonArray obj{};
+    if (!FileHandler::get_json_dynamic_doc<JsonArray>(filename.c_str(), 25000, obj)) {
         return false;
     }
 
@@ -84,8 +86,8 @@ bool Config::loadPreset(const Color_Preset_Key &key, Color_Preset *out) {
 }
 
 void Config::loadMainConfig(MainConfig *config) {
-    JsonObject obj;
-    if (!FileHandler::get_json_static_doc(main_config_file_name, &obj)) {
+    JsonObject obj{};
+    if (!FileHandler::get_json_static_doc(main_config_file_name, obj)) {
         config->num_leds = MAINCONFIG_NUM_LEDS;
         config->max_brightness = MAINCONFIG_MAX_BRIGHTNESS;
         config->current_brightness = MAINCONFIG_CURRENT_BRIGHTNESS;
@@ -115,7 +117,7 @@ String Config::read_lua_script(const Effect &fx) {
 }
 
 void Config::saveMainConfig(const MainConfig &config) {
-    JsonObject obj;
+    JsonObject obj{};
     obj["num_leds"] = config.num_leds;
     obj["max_brightness"] = config.max_brightness;
     obj["current_brightness"] = config.current_brightness;
@@ -147,11 +149,11 @@ void Config::saveColorPreset(String name, String id, Color_Preset preset) {
 
     // read preset list file and append new preset config
 
-    JsonObject presetObj;
+    JsonObject presetObj{};
     Color_Preset_Key *presets;
     int preset_amount;
 
-    if(!FileHandler::get_json_dynamic_doc(preset_list_file_name, 6500, &presetObj)) {
+    if(!FileHandler::get_json_dynamic_doc(preset_list_file_name, 6500, presetObj)) {
         return;
     }
 

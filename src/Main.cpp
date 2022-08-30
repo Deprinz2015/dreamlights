@@ -3,11 +3,6 @@
 
 #include "Arduino.h"
 
-#include "HomeSpan.h"
-#include "FastLED.h"
-#include "WebServer.h"
-#include "Update.h"
-#include "WiFiManager.h"
 #include "FS.h"
 #include "SD.h"
 #include "SPI.h"
@@ -16,14 +11,7 @@
 #include "LEDServer.h"
 #include "LED_API.h"
 #include "Globals.h"
-
-#include "CustomTypes/Clock.h"
-#include "CustomTypes/Color_Preset.h"
-#include "CustomTypes/Color_Preset_Key.h"
-#include "CustomTypes/Effect.h"
-#include "CustomTypes/Main_Config.h"
-#include "CustomTypes/Segmented_Color.h"
-#include "CustomTypes/LED_Array.h"
+#include "Config.h"
 
 void setup_server() {
     LEDServer::setup();
@@ -35,10 +23,23 @@ void setup_leds() {
 }
 
 void setup() {
-    Serial.println("Started Setup");
+    Serial.begin(115200);
+    Serial.println("Starting...");
+
+    if(!SD.begin(CS_PIN)) {
+        Serial.println("SD Card failed to initialize.");
+        delay(2000);
+        ESP.restart();
+    }
+
+    Config::loadMainConfig(&config);
+    Serial.println("Loaded main config");
 
     HomeSpanHandler::setup_homespan(setup_server, &leds);
+    Serial.println("Setup homespan");
+
     setup_leds();
+    Serial.println("Setup leds");
 
     Serial.println("Setup Complete");
 }

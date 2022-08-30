@@ -13,7 +13,7 @@
 
 struct FileHandler {
     template<typename T = JsonObject>
-    static bool get_json_dynamic_doc(const char *filename, size_t doc_size, T *obj) {
+    static bool get_json_dynamic_doc(const char *filename, size_t doc_size, T &obj) {
         File file = SD.open(filename);
         if (!file) {
             Serial.println("File open failed!");
@@ -26,16 +26,14 @@ struct FileHandler {
             Serial.println(error.c_str());
             return false;
         }
+        obj = doc.as<T>();
         file.close();
-        if(obj) {
-            *obj = doc.as<T>();
-        }
 
         return true;
     }
 
     template<typename T = JsonObject>
-    static bool get_json_static_doc(const char *filename, T *obj) {
+    static bool get_json_static_doc(const char *filename, T &obj) {
         File file = SD.open(filename);
         if (!file) {
             Serial.println("File open failed!");
@@ -48,10 +46,8 @@ struct FileHandler {
             Serial.println(error.c_str());
             return false;
         }
+        obj = doc.as<T>();
         file.close();
-        if(obj) {
-            *obj = doc.as<T>();
-        }
 
         return true;
     }

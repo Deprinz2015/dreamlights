@@ -20,9 +20,9 @@ public:
     uint8_t numClocks;
     Effect currentEffect;
     int numEffect;
-    Effect *allEffects{};
+    Effect *allEffects;
     Color_Preset currentPreset = {0, nullptr};
-    Color_Preset_Key *allPresets{};
+    Color_Preset_Key *allPresets;
     int numPreset;
     bool turnedOn = true;
     int toUpdateHomespan = NO_UPDATE;
@@ -39,7 +39,7 @@ public:
 
     void runPattern();
 
-    bool find_effect_by_id(Effect *effect, const String &effectName) const;
+    bool find_effect_by_id(Effect &effect, const String &effectName) const;
     bool find_preset_by_id(Color_Preset_Key *preset, const String &presetName) const;
 
     void set_new_effect(Effect effect);

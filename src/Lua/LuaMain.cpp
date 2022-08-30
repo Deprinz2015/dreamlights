@@ -19,11 +19,11 @@ void LuaHandler::open_lua(CRGB *leds, uint16_t num_leds) {
     led_array.size = num_leds;
 }
 
-void LuaHandler::close_lua() {
+void LuaHandler::close_lua() const {
     lua_close(L);
 }
 
-bool LuaHandler::load_lua_script(const Effect &fx) {
+bool LuaHandler::load_lua_script(const Effect &fx) const {
     String script = Config::read_lua_script(fx);
     return luaL_loadstring(L, script.c_str()) || lua_pcall(L, 0, 0, 0);
 }
@@ -39,7 +39,7 @@ void LuaHandler::luaopen_array(lua_State *L) {
     lua_setglobal(L, LUA_LED_ARRAY_LIB_NAME);
 }
 
-void LuaHandler::run_lua_pattern(const char *name) {
+void LuaHandler::run_lua_pattern(const char *name) const {
     lua_getglobal(L, name);
     lua_pcall(L, 0, 0, 0);
 }

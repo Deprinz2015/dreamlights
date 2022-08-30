@@ -19,8 +19,9 @@ uint32_t getHexFromCRGB(CRGB color) {
 
 LED_API::LED_API() {
     numEffect = Config::loadEffectList(allEffects);
+    Serial.println("Loaded " + String(numEffect) + " effects");
     numPreset = Config::loadPresetList(allPresets);
-    Config::loadMainConfig(&config);
+    Serial.println("Loaded " + String(numPreset) + " presets");
 
     leds = new CRGB[config.num_leds];
 #ifdef SK9822_TYPE
@@ -30,11 +31,16 @@ LED_API::LED_API() {
     FastLED.addLeds<WS2812B, LED_PIN, GRB>(leds, config.num_leds);
 #endif
 
+    Serial.println("Setup LED");
+
     FastLED.setBrightness(config.current_brightness);
     FastLED.clear(true);
 
-    find_effect_by_id(&currentEffect, config.last_id);
+    if (find_effect_by_id(currentEffect, config.last_id)) {
+        Serial.println("Found effect");
+    }
     numClocks = Config::loadRefreshRates(currentEffect, clocks);
+    Serial.println("Loaded clocks");
 
     Color_Preset_Key presetKey{};
     if (find_preset_by_id(&presetKey, config.segmented_preset_id)) {
@@ -54,7 +60,7 @@ void LED_API::loadPreset(String id) {
 void LED_API::play_effect(const String &id) {
     Effect fx;
 
-    if (find_effect_by_id(&fx, id)) {
+    if (find_effect_by_id(fx, id)) {
         set_new_effect(fx);
     }
 }
@@ -165,19 +171,21 @@ void LED_API::runPattern() {
     }
 }
 
-bool LED_API::find_effect_by_id(Effect *effect, const String &effectName) const {
+bool LED_API::find_effect_by_id(Effect &effect, const String &effectID) const {
+    Serial.println("Effect ID to search: " + effectID);
     for (int i = 0; i < numEffect; i++) {
-        if (strcmp(allEffects[i].name.c_str(), effectName.c_str()) == 0) {
-            *effect = allEffects[i];
+        Serial.println("Current Effect ID: " + allEffects[i].id);
+        if (strcmp(allEffects[i].id.c_str(), effectID.c_str()) == 0) {
+            effect = allEffects[i];
             return true;
         }
     }
     return false;
 }
 
-bool LED_API::find_preset_by_id(Color_Preset_Key *preset, const String &presetName) const {
+bool LED_API::find_preset_by_id(Color_Preset_Key *preset, const String &presetID) const {
     for (int i = 0; i < numPreset; i++) {
-        if (strcmp(allPresets[i].name.c_str(), presetName.c_str()) == 0) {
+        if (strcmp(allPresets[i].id.c_str(), presetID.c_str()) == 0) {
             *preset = allPresets[i];
             return true;
         }
@@ -215,7 +223,7 @@ void LED_API::set_new_preset(const Color_Preset_Key &preset) {
 }
 
 void LED_API::update_homespan(int characteristic) {
-    if(toUpdateHomespan == NO_UPDATE) {
+    if (toUpdateHomespan == NO_UPDATE) {
         toUpdateHomespan = characteristic;
     }
 }
