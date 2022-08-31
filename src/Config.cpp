@@ -8,7 +8,6 @@
 
 uint8_t Config::loadRefreshRates(const Effect &fx, Clock *clocks) {
     String filename = effect_config_template;
-    Serial.println("Loading refresh rates for Effect #" + String(fx.name));
     filename.replace("{id}", String(fx.id));
 
     DynamicJsonDocument doc(1024);
@@ -35,10 +34,8 @@ int Config::loadEffectList(Effect *&effects) {
     }
     JsonObject obj = doc.as<JsonObject>();
     effects = new Effect[obj.size()];
-    Serial.println("created effects array of size " + String(obj.size()));
     int index = 0;
     for (JsonPair pair: obj) {
-        Serial.println("Pair: " + String(pair.key().c_str()));
         effects[index].name = pair.value().as<String>();
         effects[index].id = pair.key().c_str();
 

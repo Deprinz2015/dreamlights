@@ -19,9 +19,7 @@ uint32_t getHexFromCRGB(CRGB color) {
 
 LED_API::LED_API() {
     numEffect = Config::loadEffectList(allEffects);
-    Serial.println("Loaded " + String(numEffect) + " effects");
     numPreset = Config::loadPresetList(allPresets);
-    Serial.println("Loaded " + String(numPreset) + " presets");
 
     leds = new CRGB[config.num_leds];
 #ifdef SK9822_TYPE
@@ -31,16 +29,11 @@ LED_API::LED_API() {
     FastLED.addLeds<WS2812B, LED_PIN, GRB>(leds, config.num_leds);
 #endif
 
-    Serial.println("Setup LED");
-
     FastLED.setBrightness(config.current_brightness);
     FastLED.clear(true);
 
-    if (find_effect_by_id(currentEffect, config.last_id)) {
-
-    }
+    find_effect_by_id(currentEffect, config.last_id);
     numClocks = Config::loadRefreshRates(currentEffect, clocks);
-    Serial.println("Loaded clocks");
 
     Color_Preset_Key presetKey{};
     if (find_preset_by_id(&presetKey, config.segmented_preset_id)) {
@@ -172,9 +165,7 @@ void LED_API::runPattern() {
 }
 
 bool LED_API::find_effect_by_id(Effect &effect, const String &effectID) const {
-    Serial.println("Effect ID to search: " + effectID);
     for (int i = 0; i < numEffect; i++) {
-        Serial.println("Current Effect ID: " + allEffects[i].id);
         if (strcmp(allEffects[i].id.c_str(), effectID.c_str()) == 0) {
             effect = allEffects[i];
             return true;
