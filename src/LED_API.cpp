@@ -50,7 +50,7 @@ LED_API::LED_API() {
     set_power(POWER_ON);
 }
 
-void LED_API::loadPreset(String id) {
+void LED_API::loadPreset(const String& id) {
     Color_Preset_Key presetKey{};
     if (find_preset_by_id(&presetKey, id)) {
         set_new_preset(presetKey);

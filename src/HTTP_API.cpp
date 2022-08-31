@@ -5,9 +5,9 @@
 #include "HTTP_API.h"
 #include "Globals.h"
 
-bool HTTP_API::getUrlArgument(const String& arg, String *value) {
-    *value = server.arg(arg);
-    if(*value == "") {
+bool HTTP_API::getUrlArgument(const String& arg, String &value) {
+    value = server.arg(arg);
+    if(value == "") {
         send_response(400, "Bad Request, missing argument: " + arg);
         return false;
     }
@@ -20,7 +20,7 @@ String HTTP_API::getUrlArgumentWithoutCheck(const String& arg) {
 
 void HTTP_API::load_preset() {
     String id;
-    if(!getUrlArgument("id", &id)) {
+    if(!getUrlArgument("id", id)) {
         return;
     }
 
@@ -31,7 +31,7 @@ void HTTP_API::load_preset() {
 
 void HTTP_API::save_preset() {
     String presetName;
-    if(!getUrlArgument("name", &presetName)) {
+    if(!getUrlArgument("name", presetName)) {
         return;
     }
 
@@ -47,7 +47,7 @@ void HTTP_API::color_segment() {
     String color;
     String from;
     String to = getUrlArgumentWithoutCheck("to");
-    if(!getUrlArgument("color", &color) || !getUrlArgument("from", &from)) {
+    if(!getUrlArgument("color", color) || !getUrlArgument("from", from)) {
         return;
     }
 
@@ -71,7 +71,7 @@ void HTTP_API::color_segment() {
 
 void HTTP_API::play_effect() {
     String id;
-    if(!getUrlArgument("id", &id)) {
+    if(!getUrlArgument("id", id)) {
         return;
     }
     leds.play_effect(id);
@@ -85,7 +85,7 @@ void HTTP_API::save_new_effect() {
 
 void HTTP_API::display_solid_color() {
     String value;
-    if(!getUrlArgument("value", &value)) {
+    if(!getUrlArgument("value", value)) {
         return;
     }
 
@@ -101,7 +101,7 @@ void HTTP_API::display_solid_color() {
 
 void HTTP_API::change_brightness() {
     String brightness;
-    if(!getUrlArgument("value", &brightness)) {
+    if(!getUrlArgument("value", brightness)) {
         return;
     }
 
@@ -119,7 +119,7 @@ void HTTP_API::change_brightness() {
 
 void HTTP_API::set_power() {
     String power;
-    if(!getUrlArgument("value", &power)) {
+    if(!getUrlArgument("value", power)) {
         return;
     }
 

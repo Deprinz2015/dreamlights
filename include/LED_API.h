@@ -35,7 +35,7 @@ public:
     void setBrightness(uint8_t brightness);
     void display_preset();
     void updatePreset();
-    void loadPreset(String id);
+    void loadPreset(const String& id);
 
     void runPattern();
 
