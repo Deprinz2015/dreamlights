@@ -24,7 +24,7 @@ public:
     Color_Preset currentPreset = {0, nullptr};
     Color_Preset_Key *allPresets;
     int numPreset;
-    bool turnedOn = true;
+    bool turnedOn = POWER_OFF;
     int toUpdateHomespan = NO_UPDATE;
 
     void play_effect(const String& id);

@@ -37,7 +37,7 @@ LED_API::LED_API() {
     FastLED.clear(true);
 
     if (find_effect_by_id(currentEffect, config.last_id)) {
-        Serial.println("Found effect");
+
     }
     numClocks = Config::loadRefreshRates(currentEffect, clocks);
     Serial.println("Loaded clocks");

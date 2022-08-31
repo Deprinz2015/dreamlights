@@ -124,10 +124,10 @@ void HTTP_API::set_power() {
     }
 
     if(power == "on") {
-        leds.set_power(true);
+        leds.set_power(POWER_ON);
         send_response(200, "Power on");
     } else if(power == "off") {
-        leds.set_power(false);
+        leds.set_power(POWER_OFF);
         send_response(200, "Power off");
     } else {
         send_response(400, "Bad Request, power must be 'on' or 'off'");
