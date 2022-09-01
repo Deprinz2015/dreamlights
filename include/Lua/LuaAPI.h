@@ -57,7 +57,7 @@ struct Lua_Functions {
 };
 
 static const struct luaL_Reg led_array_lib_m[] = {
-        {"setLed",         Lua_Methods::setLed},
+        {"set",            Lua_Methods::setLed},
         {"setHue",         Lua_Methods::setHue},
         {"setRed",         Lua_Methods::setRed},
         {"setGreen",       Lua_Methods::setGreen},
@@ -68,8 +68,8 @@ static const struct luaL_Reg led_array_lib_m[] = {
         {"addBlue",        Lua_Methods::addBlue},
         {"setHSV",         Lua_Methods::setHSV},
         {"setRGB",         Lua_Methods::setRGB},
-        {"getLed",         Lua_Methods::getLed},
-        {"getSize",        Lua_Methods::getSize},
+        {"get",            Lua_Methods::getLed},
+        {"size",           Lua_Methods::getSize},
         {"fadeToBlack",    Lua_Methods::fadeToBlack},
         {"fadeAllToBlack", Lua_Methods::fadeAllToBlack},
         {"randomIndex",    Lua_Methods::randomIndex},

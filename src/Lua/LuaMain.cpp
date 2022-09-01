@@ -26,7 +26,10 @@ void LuaHandler::close_lua() const {
 void LuaHandler::load_lua_script(const Effect &fx) const {
     String script = Config::read_lua_script(fx);
     luaL_loadstring(L, script.c_str());
-    lua_pcall(L, 0, 0, 0);
+    if(lua_pcall(L, 0, 0, 0) != 0) {
+        Serial.print("Error on prime call for lua script: ");
+        Serial.println(lua_tostring(L, -1));
+    }
 }
 
 void LuaHandler::luaopen_array(lua_State *L) {
@@ -48,10 +51,4 @@ void LuaHandler::run_lua_pattern(const char *name) const {
         Serial.print("(): ");
         Serial.println(lua_tostring(L, -1));
     }
-    // TODO fix Lua API
-    // Stack size steadily increases, because Error Message
-    // When calling the function, there is an error for accessing a nil value
-    // Somewhere there seems to be a non initialized variable, thats being used
-    // led_array not filled?
-    // functions not available?
 }
