@@ -4,7 +4,6 @@
 
 #include "LED_API.h"
 
-#include <utility>
 #include "Globals.h"
 #include "Constants.h"
 #include "Config.h"
