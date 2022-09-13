@@ -7,8 +7,8 @@
 
 // Definition of LED-Type
 
-#define SK9822_TYPE
-//#define WS2812B_TYPE
+//#define SK9822_TYPE
+#define WS2812B_TYPE
 
 //--------------------------------------------------------------------------------------------------
 
@@ -44,19 +44,10 @@
 //--------------------------------------------------------------------------------------------------
 
 // Definition of HomeSpan-Device Parameters
-
-#ifdef SK9822_TYPE
 extern const char *host;
 extern const char *model;
 extern const char *sn;
 extern const char *name;
-#endif
-#ifdef WS2812B_TYPE
-extern const char *host;
-extern const char *model;
-extern const char *sn;
-extern const char *name;
-#endif
 
 //--------------------------------------------------------------------------------------------------
 
