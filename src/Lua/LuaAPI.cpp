@@ -73,14 +73,16 @@ LED_Array *check_led_array(lua_State *L) {
     return a;
 }
 
+uint16_t check_led_index(lua_State *L, LED_Array *a, int index) {
+    uint16_t ledIndex = luaL_checkinteger(L, index);
+    luaL_argcheck(L, 1 <= ledIndex && ledIndex <= a->size, index, "Index out of bounds");
+    return ledIndex - 1;
+}
+
 int Lua_Methods::setLed(lua_State *L) {
     LED_Array *a = check_led_array(L);
-    uint16_t index = luaL_checkinteger(L, 2);
+    uint16_t index = check_led_index(L, a, 2);
     luaL_checktype(L, 3, LUA_TTABLE);
-    luaL_argcheck(L, 1 <= index && index <= a->size, 2,
-                  "index out of range");
-
-    index -= 1;
 
     CHSV hsv{0, 255, 255};
     CRGB rgb{0, 0, 0};
@@ -117,137 +119,115 @@ int Lua_Methods::setLed(lua_State *L) {
 
 int Lua_Methods::setHSV(lua_State *L) {
     LED_Array *a = check_led_array(L);
-    uint16_t index = luaL_checkinteger(L, 2);
-    luaL_argcheck(L, 1 <= index && index <= a->size, 2,
-                  "index out of range");
+    uint16_t index = check_led_index(L, a, 2);
     uint8_t h = luaL_checkinteger(L, 3);
     uint8_t s = luaL_checkinteger(L, 4);
     uint8_t v = luaL_checkinteger(L, 5);
 
-    a->leds[index - 1].setHSV(h, s, v);
+    a->leds[index].setHSV(h, s, v);
 
     return 0;
 }
 
 int Lua_Methods::setRGB(lua_State *L) {
     LED_Array *a = check_led_array(L);
-    uint16_t index = luaL_checkinteger(L, 2);
-    luaL_argcheck(L, 1 <= index && index <= a->size, 2,
-                  "index out of range");
+    uint16_t index = check_led_index(L, a, 2);
     uint8_t r = luaL_checkinteger(L, 3);
     uint8_t g = luaL_checkinteger(L, 4);
     uint8_t b = luaL_checkinteger(L, 5);
 
-    a->leds[index - 1].setRGB(r, g, b);
+    a->leds[index].setRGB(r, g, b);
 
     return 0;
 }
 
 int Lua_Methods::setHue(lua_State *L) {
     LED_Array *a = check_led_array(L);
-    uint16_t index = luaL_checkinteger(L, 2);
-    luaL_argcheck(L, 1 <= index && index <= a->size, 2,
-                  "index out of range");
+    uint16_t index = check_led_index(L, a, 2);
     uint8_t h = luaL_checkinteger(L, 3);
 
-    a->leds[index - 1].setHue(h);
+    a->leds[index].setHue(h);
 
     return 0;
 }
 
 int Lua_Methods::setRed(lua_State *L) {
     LED_Array *a = check_led_array(L);
-    uint16_t index = luaL_checkinteger(L, 2);
-    luaL_argcheck(L, 1 <= index && index <= a->size, 2,
-                  "index out of range");
+    uint16_t index = check_led_index(L, a, 2);
     uint8_t r = luaL_checkinteger(L, 3);
 
-    a->leds[index - 1].r = r;
+    a->leds[index].r = r;
 
     return 0;
 }
 
 int Lua_Methods::setGreen(lua_State *L) {
     LED_Array *a = check_led_array(L);
-    uint16_t index = luaL_checkinteger(L, 2);
-    luaL_argcheck(L, 1 <= index && index <= a->size, 2,
-                  "index out of range");
+    uint16_t index = check_led_index(L, a, 2);
     uint8_t g = luaL_checkinteger(L, 3);
 
-    a->leds[index - 1].g = g;
+    a->leds[index].g = g;
 
     return 0;
 }
 
 int Lua_Methods::setBlue(lua_State *L) {
     LED_Array *a = check_led_array(L);
-    uint16_t index = luaL_checkinteger(L, 2);
-    luaL_argcheck(L, 1 <= index && index <= a->size, 2,
-                  "index out of range");
+    uint16_t index = check_led_index(L, a, 2);
     uint8_t b = luaL_checkinteger(L, 3);
 
-    a->leds[index - 1].b = b;
+    a->leds[index].b = b;
 
     return 0;
 }
 
 int Lua_Methods::addHue(lua_State *L) {
     LED_Array *a = check_led_array(L);
-    uint16_t index = luaL_checkinteger(L, 2);
-    luaL_argcheck(L, 1 <= index && index <= a->size, 2,
-                  "index out of range");
+    uint16_t index = check_led_index(L, a, 2);
     uint8_t h = luaL_checkinteger(L, 3);
 
-    a->leds[index - 1] += CHSV{h, 255, 255};
+    a->leds[index] += CHSV{h, 255, 255};
 
     return 0;
 }
 
 int Lua_Methods::addRed(lua_State *L) {
     LED_Array *a = check_led_array(L);
-    uint16_t index = luaL_checkinteger(L, 2);
-    luaL_argcheck(L, 1 <= index && index <= a->size, 2,
-                  "index out of range");
+    uint16_t index = check_led_index(L, a, 2);
     uint8_t r = luaL_checkinteger(L, 3);
 
-    a->leds[index - 1].r += r;
+    a->leds[index].r += r;
 
     return 0;
 }
 
 int Lua_Methods::addGreen(lua_State *L) {
     LED_Array *a = check_led_array(L);
-    uint16_t index = luaL_checkinteger(L, 2);
-    luaL_argcheck(L, 1 <= index && index <= a->size, 2,
-                  "index out of range");
+    uint16_t index = check_led_index(L, a, 2);
     uint8_t g = luaL_checkinteger(L, 3);
 
-    a->leds[index - 1].g += g;
+    a->leds[index].g += g;
 
     return 0;
 }
 
 int Lua_Methods::addBlue(lua_State *L) {
     LED_Array *a = check_led_array(L);
-    uint16_t index = luaL_checkinteger(L, 2);
-    luaL_argcheck(L, 1 <= index && index <= a->size, 2,
-                  "index out of range");
+    uint16_t index = check_led_index(L, a, 2);
     uint8_t b = luaL_checkinteger(L, 3);
 
-    a->leds[index - 1].b += b;
+    a->leds[index].b += b;
 
     return 0;
 }
 
 int Lua_Methods::getLed(lua_State *L) {
     LED_Array *a = check_led_array(L);
-    uint16_t index = luaL_checkinteger(L, 2);
-    luaL_argcheck(L, 1 <= index && index <= a->size, 2,
-                  "index out of range");
+    uint16_t index = check_led_index(L, a, 2);
 
-    lua_pushinteger(L, a->leds[index - 1].r);
-    lua_pushinteger(L, a->leds[index - 1].g);
-    lua_pushinteger(L, a->leds[index - 1].b);
+    lua_pushinteger(L, a->leds[index].r);
+    lua_pushinteger(L, a->leds[index].g);
+    lua_pushinteger(L, a->leds[index].b);
     return 3;
 }
 
@@ -259,11 +239,9 @@ int Lua_Methods::getSize(lua_State *L) {
 
 int Lua_Methods::fadeToBlack(lua_State *L) {
     LED_Array *a = check_led_array(L);
-    uint16_t index = luaL_checkinteger(L, 2);
-    luaL_argcheck(L, 1 <= index && index <= a->size, 2,
-                  "index out of range");
+    uint16_t index = check_led_index(L, a, 2);
     uint8_t fade = luaL_checkinteger(L, 3);
-    a->leds[index - 1].fadeToBlackBy(fade);
+    a->leds[index].fadeToBlackBy(fade);
     return 0;
 }
 

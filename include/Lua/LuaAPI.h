@@ -78,11 +78,11 @@ static const struct luaL_Reg led_array_lib_m[] = {
 };
 
 static const struct luaL_Reg led_array_lib_f[] = {
-        {"new",        Lua_Functions::getArray},
-        {"random8",    Lua_Functions::l_random8},
-        {"random16",   Lua_Functions::l_random16},
-        {"randomBool", Lua_Functions::l_randomBool},
-        {"showLeds",   Lua_Functions::showLeds},
+        {"new",           Lua_Functions::getArray},
+        {"random8",       Lua_Functions::l_random8},
+        {"random16",      Lua_Functions::l_random16},
+        {"randomBoolean", Lua_Functions::l_randomBool},
+        {"showLeds",      Lua_Functions::showLeds},
         {NULL, NULL}
 };
 
