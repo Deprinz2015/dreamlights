@@ -16,7 +16,7 @@ bool HTTP_API::getUrlArgument(const String& arg, String &value) {
 }
 
 bool HTTP_API::getBody(String &value) {
-    value = server.arg("pain");
+    value = server.arg("plain");
     if(value == "") {
         send_response(400, "Bad Request, missing body");
         return false;
@@ -90,14 +90,12 @@ void HTTP_API::play_effect() {
 }
 
 void HTTP_API::save_new_effect() {
+    Serial.println("Start of Save Effect Route");
+
     String script;
     if(!getBody(script)) {
         return;
     }
-
-    Serial.println("Effect Script loaded:");
-    Serial.println(script);
-    Serial.println("---------------------");
 
     String effectName = "";
 
@@ -111,11 +109,12 @@ void HTTP_API::save_new_effect() {
     for(int i = 0; i < argCount; i++) {
         argName = server.argName(i);
 
-        Serial.println("Argument '" + argName + "' found");
+        if(argName == "plain") {
+            continue;
+        }
 
         if(argName == "name") {
             if(!getUrlArgument(argName, effectName)) {
-                Serial.println("Argument value '" + effectName + "' for 'name' found");
                 return;
             }
             continue;
@@ -124,8 +123,6 @@ void HTTP_API::save_new_effect() {
         if(!getUrlArgument(argName, timeString)) {
             return;
         }
-
-        Serial.println("Argument value '" + timeString + "' for '" + argName + "'found");
 
         clock_names[clockIndex] = argName;
         clock_times[clockIndex] = strtol(timeString.c_str(), nullptr, DEC);
@@ -197,7 +194,7 @@ void HTTP_API::send_response(int code, const String &message) {
     if(code > 400) {
         part1 = R"({"error": ")";
     }
-    String part2 = R"("}";)";
+    String part2 = R"("})";
     String response = part1 + message + part2;
     server.send(code, "application/json", response);
 }

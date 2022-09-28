@@ -196,7 +196,20 @@ void Config::saveColorPreset(String name, String id, Color_Preset preset) {
 }
 
 bool Config::saveEffect(String name, String id, String script, uint8_t clock_amount, String* clock_names, uint32_t* clock_times) {
-    Serial.println("Save Effec to SD File...");
+    Serial.println("Save Effect to SD File:");
+
+    Serial.println(name);
+    Serial.println(id);
+    Serial.println("-------------");
+    Serial.println(script);
+    Serial.println("-------------");
+    Serial.println(clock_amount);
+
+    for(int i = 0; i < clock_amount; i++) {
+        Serial.print(clock_names[i]);
+        Serial.print(": ");
+        Serial.println(clock_times[i]);
+    }
 
     // TODO
     // 1. Save new Effect File
@@ -205,5 +218,12 @@ bool Config::saveEffect(String name, String id, String script, uint8_t clock_amo
     // 4. Append new Effect
     // 5. Save Effect List
 
+    // 1.
+    String filename = effect_file_template;
+    filename.replace("{id}", id);
+
+    FileHandler::write_file(filename.c_str(), script);
+
+    Serial.println("Successfully saved on SD Card");
     return true;
 }
