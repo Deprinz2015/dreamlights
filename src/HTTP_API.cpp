@@ -100,8 +100,8 @@ void HTTP_API::save_new_effect() {
 
     String effectName = "";
 
-    String *names = new String[10];
-    uint32_t *times = new uint32_t[10];
+    auto *names = new String[10];
+    auto *times = new uint32_t[10];
 
     int clockIndex = 0;
     int argCount = server.args();
