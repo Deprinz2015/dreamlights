@@ -52,8 +52,8 @@ String FileHandler::read_file(const char *filename) {
     return content;
 }
 
-bool FileHandler::write_file(const char *filename, String content) {
-    File file = SD.open(filename);
+bool FileHandler::write_file(const char *filename, String &content) {
+    File file = SD.open(filename, "w");
     if (!file) {
         Serial.println("File open failed!");
         return "";

@@ -91,7 +91,7 @@ void LED_API::save_preset(String &newName) {
 }
 
 void LED_API::save_effect(String &newName, String &script, uint8_t clock_amount, String* clock_names, uint32_t* clock_times) {
-    String id = String(numEffect);
+    String id = String(numEffect + 1);
     Config::saveEffect(newName, id, script, clock_amount, clock_names, clock_times);
 
     numEffect = Config::loadEffectList(allEffects);
