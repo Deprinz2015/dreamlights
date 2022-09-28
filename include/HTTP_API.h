@@ -23,6 +23,7 @@ struct HTTP_API {
     static void send_response(int code, const String &message);
 
 private:
+    static bool getBody(String &value);
     static bool getUrlArgument(const String &arg, String &value);
     static String getUrlArgumentWithoutCheck(const String &arg);
 };

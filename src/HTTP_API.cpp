@@ -14,6 +14,15 @@ bool HTTP_API::getUrlArgument(const String& arg, String &value) {
     return true;
 }
 
+bool HTTP_API::getBody(String &value) {
+    value = server.arg("pain");
+    if(value == "") {
+        send_response(400, "Bad Request, missing body");
+        return false;
+    }
+    return true;
+}
+
 String HTTP_API::getUrlArgumentWithoutCheck(const String& arg) {
     return server.arg(arg);
 }
@@ -80,7 +89,51 @@ void HTTP_API::play_effect() {
 }
 
 void HTTP_API::save_new_effect() {
-    // TODO
+    String script;
+    if(!getBody(script)) {
+        return;
+    }
+
+    Serial.println("Effect Script loaded:");
+    Serial.println(script);
+    Serial.println("---------------------");
+
+    String effectName = "";
+
+    String *names = new String[10];
+    uint32_t *times = new uint32_t[10];
+
+    int clockIndex = 0;
+    int argCount = server.args();
+    String argName;
+    String timeString;
+    for(int i = 0; i < argCount; i++) {
+        argName = server.argName(i);
+
+        Serial.println("Argument '" + argName + "' found");
+
+        if(argName == "name") {
+            if(!getUrlArgument(argName, effectName)) {
+                Serial.println("Argument value '" + effectName + "' for 'name' found");
+                return;
+            }
+            continue;
+        }
+
+        if(!getUrlArgument(argName, timeString)) {
+            return;
+        }
+
+        Serial.println("Argument value '" + timeString + "' for '" + argName + "'found");
+
+        names[clockIndex] = argName;
+        times[clockIndex] = strtol(timeString.c_str(), nullptr, DEC);
+
+        clockIndex++;
+    }
+
+
+    send_response(200, "effect saved");
 }
 
 void HTTP_API::display_solid_color() {
