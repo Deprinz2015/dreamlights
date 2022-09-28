@@ -131,8 +131,7 @@ void HTTP_API::save_new_effect() {
 
         clockIndex++;
     }
-
-
+    // TODO saving of script and config file
     send_response(200, "effect saved");
 }
 
