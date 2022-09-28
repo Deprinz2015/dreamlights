@@ -17,6 +17,7 @@ struct FileHandler {
     static bool get_json_static_doc(const char *filename, StaticJsonDocument<STATIC_JSON_OBJ_SIZE> &doc);
 
     static String read_file(const char *filename);
+    static bool write_file(const char* filename, String content);
 
     template<typename TSource>
     static void save_json_doc(const char *filename, TSource doc) {

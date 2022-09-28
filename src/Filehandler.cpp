@@ -51,3 +51,16 @@ String FileHandler::read_file(const char *filename) {
     file.close();
     return content;
 }
+
+bool FileHandler::write_file(const char *filename, String content) {
+    File file = SD.open(filename);
+    if (!file) {
+        Serial.println("File open failed!");
+        return "";
+    }
+
+    bool success = file.print(content);
+
+    file.close();
+    return success;
+}

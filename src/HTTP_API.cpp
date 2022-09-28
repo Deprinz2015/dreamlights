@@ -4,6 +4,7 @@
 
 #include "HTTP_API.h"
 #include "Globals.h"
+#include "Config.h"
 
 bool HTTP_API::getUrlArgument(const String& arg, String &value) {
     value = server.arg(arg);
@@ -100,8 +101,8 @@ void HTTP_API::save_new_effect() {
 
     String effectName = "";
 
-    auto names = new String[10];
-    auto times = new uint32_t[10];
+    auto clock_names = new String[10];
+    auto clock_times = new uint32_t[10];
 
     int clockIndex = 0;
     int argCount = server.args();
@@ -126,12 +127,14 @@ void HTTP_API::save_new_effect() {
 
         Serial.println("Argument value '" + timeString + "' for '" + argName + "'found");
 
-        names[clockIndex] = argName;
-        times[clockIndex] = strtol(timeString.c_str(), nullptr, DEC);
+        clock_names[clockIndex] = argName;
+        clock_times[clockIndex] = strtol(timeString.c_str(), nullptr, DEC);
 
         clockIndex++;
     }
-    // TODO saving of script and config file
+
+    leds.save_effect(effectName, script, clockIndex, clock_names, clock_times);
+
     send_response(200, "effect saved");
 }
 

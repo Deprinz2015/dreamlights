@@ -83,11 +83,19 @@ void LED_API::color_segment(uint16_t from, uint16_t to, uint32_t color) {
     updatePreset();
 }
 
-void LED_API::save_preset(String newName) {
+void LED_API::save_preset(String &newName) {
     String id = String(numPreset);
-    Config::saveColorPreset(std::move(newName), id, currentPreset);
+    Config::saveColorPreset(newName, id, currentPreset);
 
     numPreset = Config::loadPresetList(allPresets);
+}
+
+void LED_API::save_effect(String &newName, String &script, uint8_t clock_amount, String* clock_names, uint32_t* clock_times) {
+    String id = String(numEffect);
+    Config::saveEffect(newName, id, script, clock_amount, clock_names, clock_times);
+
+    numEffect = Config::loadEffectList(allEffects);
+    play_effect(id);
 }
 
 void LED_API::setBrightness(uint8_t brightnessPerc) {

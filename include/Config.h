@@ -22,6 +22,7 @@ struct Config {
 
     static void saveMainConfig(const MainConfig &config);
     static void saveColorPreset(String name, String id, Color_Preset preset);
+    static bool saveEffect(String name, String id, String script, uint8_t clock_amount, String* clock_names, uint32_t* clock_times);
 };
 
 #endif //MAINCODE_CONFIG_H
