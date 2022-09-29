@@ -15,8 +15,8 @@ int Lua_Functions::getArray(lua_State *L) {
 }
 
 int Lua_Functions::l_random8(lua_State *L) {
-    uint8_t firstLim = luaL_optinteger(L, 1, -1);
-    uint8_t secondLim = luaL_optinteger(L, 2, -1);
+    int firstLim = luaL_optinteger(L, 1, -1);
+    int secondLim = luaL_optinteger(L, 2, -1);
     uint8_t random;
 
     if (secondLim < 0) {
@@ -35,8 +35,8 @@ int Lua_Functions::l_random8(lua_State *L) {
 }
 
 int Lua_Functions::l_random16(lua_State *L) {
-    uint16_t firstLim = luaL_optinteger(L, 1, -1);
-    uint16_t secondLim = luaL_optinteger(L, 2, -1);
+    int firstLim = luaL_optinteger(L, 1, -1);
+    int secondLim = luaL_optinteger(L, 2, -1);
     uint16_t random;
 
     if (secondLim < 0) {
