@@ -98,5 +98,6 @@ extern const char *effect_file_template;
 #define ROUTE_LOAD_PRESET "/load_preset"
 #define ROUTE_SAVE_PRESET "/save_preset"
 #define ROUTE_SAVE_NEW_EFFECT "/new_effect"
+#define ROUTE_SAVE_EFFECT "/update_effect"
 
 #endif //MAINCODE_CONSTANTS_H

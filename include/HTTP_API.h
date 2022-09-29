@@ -15,6 +15,7 @@ struct HTTP_API {
 
     static void play_effect();
     static void save_new_effect();
+    static void save_effect();
 
     static void display_solid_color();
     static void change_brightness();

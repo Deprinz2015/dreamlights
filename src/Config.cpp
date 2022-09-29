@@ -192,7 +192,7 @@ void Config::saveColorPreset(String name, String id, Color_Preset preset) {
     FileHandler::save_json_doc(preset_list_file_name, presetListDoc);
 }
 
-void Config::saveEffect(String &effect_name, String &id, String &script, uint8_t clock_amount, String *clock_names, uint32_t *clock_times) {
+void Config::saveNewEffect(String &effect_name, String &id, String &script, uint8_t clock_amount, String *clock_names, uint32_t *clock_times) {
     // 1. Save new Effect File
     // 2. Save new Config File
     // 3. Load current Effect List
@@ -248,4 +248,26 @@ void Config::saveEffect(String &effect_name, String &id, String &script, uint8_t
     }
 
     FileHandler::save_json_doc(effect_list_file_name, new_effect_list_doc);
+}
+
+void Config::saveEffect(String &id, String &script, uint8_t clock_amount, String *clock_names, uint32_t *clock_times) {
+    // 1. Save new Effect File
+    // 2. Save new Config File
+
+    // 1.
+    String filename = effect_file_template;
+    filename.replace("{id}", id);
+
+    FileHandler::write_file(filename.c_str(), script);
+
+    // 2.
+    filename = effect_config_template;
+    filename.replace("{id}", id);
+
+    DynamicJsonDocument config_file_doc(1024);
+
+    for (int i = 0; i < clock_amount; i++) {
+        config_file_doc[clock_names[i]] = clock_times[i];
+    }
+    FileHandler::save_json_doc(filename.c_str(), config_file_doc);
 }

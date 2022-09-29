@@ -90,8 +90,6 @@ void HTTP_API::play_effect() {
 }
 
 void HTTP_API::save_new_effect() {
-    Serial.println("Start of Save Effect Route");
-
     String script;
     if(!getBody(script)) {
         return;
@@ -130,7 +128,51 @@ void HTTP_API::save_new_effect() {
         clockIndex++;
     }
 
-    leds.save_effect(effectName, script, clockIndex, clock_names, clock_times);
+    leds.save_new_effect(effectName, script, clockIndex, clock_names, clock_times);
+
+    send_response(200, "effect saved");
+}
+
+void HTTP_API::save_effect() {
+    String script;
+    if(!getBody(script)) {
+        return;
+    }
+
+    String effectID = "";
+
+    auto clock_names = new String[10];
+    auto clock_times = new uint32_t[10];
+
+    int clockIndex = 0;
+    int argCount = server.args();
+    String argName;
+    String timeString;
+    for(int i = 0; i < argCount; i++) {
+        argName = server.argName(i);
+
+        if(argName == "plain") {
+            continue;
+        }
+
+        if(argName == "id") {
+            if(!getUrlArgument(argName, effectID)) {
+                return;
+            }
+            continue;
+        }
+
+        if(!getUrlArgument(argName, timeString)) {
+            return;
+        }
+
+        clock_names[clockIndex] = argName;
+        clock_times[clockIndex] = strtol(timeString.c_str(), nullptr, DEC);
+
+        clockIndex++;
+    }
+
+    leds.save_effect(effectID, script, clockIndex, clock_names, clock_times);
 
     send_response(200, "effect saved");
 }

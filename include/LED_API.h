@@ -33,7 +33,8 @@ public:
     void set_power(bool power);
     void color_segment(uint16_t from, uint16_t to, uint32_t color);
     void save_preset(String &name);
-    void save_effect(String &name, String &script, uint8_t clock_amount, String* clock_names, uint32_t* clock_times);
+    void save_new_effect(String &name, String &script, uint8_t clock_amount, String* clock_names, uint32_t* clock_times);
+    void save_effect(String &id, String &script, uint8_t clock_amount, String* clock_names, uint32_t* clock_times);
     void setBrightness(uint8_t brightness);
     void display_preset();
     void updatePreset();

@@ -16,6 +16,7 @@ void LEDServer::setup() {
     server.on(ROUTE_SAVE_PRESET, HTTP_GET, HTTP_API::save_preset);
     server.on(ROUTE_LOAD_PRESET, HTTP_GET, HTTP_API::load_preset);
     server.on(ROUTE_SAVE_NEW_EFFECT, HTTP_POST, HTTP_API::save_new_effect);
+    server.on(ROUTE_SAVE_EFFECT, HTTP_POST, HTTP_API::save_effect);
 }
 
 void LEDServer::begin() {
