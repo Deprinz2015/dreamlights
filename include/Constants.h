@@ -7,8 +7,8 @@
 
 // Definition of LED-Type
 
-#define SK9822_TYPE
-//#define WS2812B_TYPE
+//#define SK9822_TYPE
+#define WS2812B_TYPE
 
 //--------------------------------------------------------------------------------------------------
 

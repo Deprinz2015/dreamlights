@@ -251,8 +251,8 @@ void Config::saveNewEffect(String &effect_name, String &id, String &script, uint
 }
 
 void Config::saveEffect(String &id, String &script, uint8_t clock_amount, String *clock_names, uint32_t *clock_times) {
-    // 1. Save new Effect File
-    // 2. Save new Config File
+    // 1. Save Effect File
+    // 2. Save Config File
 
     // 1.
     String filename = effect_file_template;

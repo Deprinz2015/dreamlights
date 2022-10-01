@@ -80,6 +80,8 @@ void HTTP_API::color_segment() {
 }
 
 void HTTP_API::play_effect() {
+    Serial.println("Play Effect");
+
     String id;
     if(!getUrlArgument("id", id)) {
         return;

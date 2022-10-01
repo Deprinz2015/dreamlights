@@ -6,13 +6,11 @@
 #define MAINCODE_GLOBALS_H
 
 #include "WebServer.h"
-#include "WiFiManager.h"
 #include "CustomTypes/Main_Config.h"
 #include "Lua/LuaMain.h"
 #include "LED_API.h"
 
 extern WebServer server;
-extern WiFiManager wm;
 
 extern MainConfig config;
 

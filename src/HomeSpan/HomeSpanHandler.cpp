@@ -6,18 +6,20 @@
 #include "HomeSpan.h"
 #include "HomeSpan/DEV_Identify.h"
 #include "HomeSpan/DEV_LEDStrip.h"
-#include "Globals.h"
 
 void HomeSpanHandler::wificonnect() {
-    wm.autoConnect(WIFI_SSID, WIFI_PASS);
-
-    homeSpan.setWifiCredentials(wm.getWiFiSSID().c_str(), wm.getWiFiPass().c_str());
+    //TODO
+    // Die Standard AP-Function von Homespan speichert die WiFi-Daten nicht korrekt ab.
+    // Da die LEDs sowieso eine eigene App bekommen sollen, kann eine einfach HTTP-Anfrage
+    // mit SSID, Passwort und Setup-Code genügen, um die dynamische Verbindung einzurichten
+    // Dabei werden die WiFi Daten wenn möglich im ESP eigenen NVS gespeichert,
+    // ansonsten (verschlüsselt) auf der SD Karte
     ESP.restart();
 }
 
 void HomeSpanHandler::setup_homespan(void(*wifiCallback)(), LED_API *ledApi) {
     homeSpan.enableOTA();
-    homeSpan.setApFunction(wificonnect);
+    //homeSpan.setApFunction(wificonnect);
     homeSpan.enableAutoStartAP();
     homeSpan.setHostNameSuffix("");
     homeSpan.setPortNum(1201);

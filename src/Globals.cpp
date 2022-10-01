@@ -5,7 +5,6 @@
 #include "Globals.h"
 
 WebServer server(80);
-WiFiManager wm;
 
 MainConfig config;
 
