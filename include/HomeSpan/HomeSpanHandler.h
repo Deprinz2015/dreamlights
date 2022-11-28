@@ -8,7 +8,6 @@
 #include "LED_API.h"
 
 struct HomeSpanHandler {
-    static void wificonnect();
     static void setup_homespan(void(*)(), LED_API *ledApi);
     static void homespan_loop();
 };
