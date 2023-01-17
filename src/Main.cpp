@@ -26,6 +26,9 @@ void setup() {
     Serial.begin(115200);
     Serial.println("Starting...");
 
+    Serial.print("LED Software Version: ");
+    Serial.println(LED_VERSION);
+
     if(!SD.begin(CS_PIN)) {
         Serial.println("SD Card failed to initialize.");
         delay(2000);
