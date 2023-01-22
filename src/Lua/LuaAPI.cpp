@@ -79,44 +79,6 @@ uint16_t check_led_index(lua_State *L, LED_Array *a, int index) {
     return ledIndex - 1;
 }
 
-int Lua_Methods::setLed(lua_State *L) {
-    LED_Array *a = check_led_array(L);
-    uint16_t index = check_led_index(L, a, 2);
-    luaL_checktype(L, 3, LUA_TTABLE);
-
-    CHSV hsv{0, 255, 255};
-    CRGB rgb{0, 0, 0};
-    bool useHSV = false;
-    lua_pushnil(L);
-    while (lua_next(L, 3) != 0) {
-        const char *key = lua_tostring(L, -2);
-        uint8_t value = luaL_checkinteger(L, -1);
-        if (strcmp(key, "r") == 0) {
-            rgb.r = value;
-        } else if (strcmp(key, "g") == 0) {
-            rgb.g = value;
-        } else if (strcmp(key, "b") == 0) {
-            rgb.b = value;
-        } else if (strcmp(key, "h") == 0) {
-            hsv.h = value;
-            useHSV = true;
-        } else if (strcmp(key, "s") == 0) {
-            hsv.s = value;
-        } else if (strcmp(key, "v") == 0) {
-            hsv.v = value;
-        }
-
-        lua_pop(L, 1);
-    }
-    if (useHSV) {
-        a->leds[index] = hsv;
-    } else {
-        a->leds[index] = rgb;
-    }
-
-    return 0;
-}
-
 int Lua_Methods::setHSV(lua_State *L) {
     LED_Array *a = check_led_array(L);
     uint16_t index = check_led_index(L, a, 2);

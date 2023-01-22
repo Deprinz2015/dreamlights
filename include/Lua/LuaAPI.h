@@ -9,8 +9,6 @@
 #include "CustomTypes/LED_Array.h"
 
 struct Lua_Methods {
-    static int setLed(lua_State *L);
-
     static int setHue(lua_State *L);
 
     static int setRed(lua_State *L);
@@ -57,7 +55,6 @@ struct Lua_Functions {
 };
 
 static const struct luaL_Reg led_array_lib_m[] = {
-        {"set",            Lua_Methods::setLed},
         {"setHue",         Lua_Methods::setHue},
         {"setRed",         Lua_Methods::setRed},
         {"setGreen",       Lua_Methods::setGreen},
