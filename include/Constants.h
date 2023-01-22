@@ -104,13 +104,4 @@ extern const char *effect_file_template;
 #define ROUTE_SAVE_NEW_EFFECT "/new_effect"
 #define ROUTE_SAVE_EFFECT "/update_effect"
 
-//---------------------------------------------------------------------------------------------------
-
-// Setup Constants
-
-#define WIFI_CONNECT_ROUTE "/wifi"
-#define WIFI_CREDENTIALS_FILE "/wifi"
-#define AP_SSID "dreamlight"
-#define AP_PASS "12345678"
-
 #endif //MAINCODE_CONSTANTS_H
