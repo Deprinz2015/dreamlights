@@ -44,6 +44,7 @@
 #define UPDATE_POWER 1
 #define UPDATE_COLOR 2
 #define UPDATE_BRIGHTNESS 3
+#define UPDATE_EFFECT 4
 
 //--------------------------------------------------------------------------------------------------
 
