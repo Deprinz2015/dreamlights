@@ -21,7 +21,7 @@ struct Config {
     static String read_lua_script(const Effect &fx);
 
     static void saveMainConfig(const MainConfig &config);
-    static void saveColorPreset(String name, String id, Color_Preset preset);
+    static void saveColorPreset(const String& presetName, const String& id, Color_Preset preset);
     static void saveNewEffect(String &effect_name, String &id, String &script, uint8_t clock_amount, String* clock_names, uint32_t* clock_times);
     static void saveEffect(String &id, String &script, uint8_t clock_amount, String* clock_names, uint32_t* clock_times);
 };

@@ -131,6 +131,7 @@ void HTTP_API::save_new_effect() {
     }
 
     leds.save_new_effect(effectName, script, clockIndex, clock_names, clock_times);
+    // TODO update Homespan
 
     send_response(200, "effect saved");
 }
@@ -175,6 +176,7 @@ void HTTP_API::save_effect() {
     }
 
     leds.save_effect(effectID, script, clockIndex, clock_names, clock_times);
+    // TODO update Homespan
 
     send_response(200, "effect saved");
 }

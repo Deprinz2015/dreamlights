@@ -51,12 +51,18 @@ void LED_API::loadPreset(const String& id) {
 
 void LED_API::play_effect(const String &id) {
     Effect fx;
-
     if (find_effect_by_id(fx, id)) {
         set_new_effect(fx);
     }
 }
 
+/**
+ * Sets the entire Strip to the given color
+ * and executes FastLED.show() to refresh the physical Strip
+ * Also saves the new Color Value to the Config File
+ *
+ * @param value color value as a 32-bit integer (RGB-Hex value)
+ */
 void LED_API::display_solid_color(uint32_t value) {
     config.color = value;
     setIsSolidColor();
@@ -90,6 +96,16 @@ void LED_API::save_preset(String &newName) {
     numPreset = Config::loadPresetList(allPresets);
 }
 
+/**
+ * Saves a new Effect with the given parameters
+ * Plays the newly saved effect
+ *
+ * @param newName Name of the effect
+ * @param script Lua Script describing the effect
+ * @param clock_amount amount of timers
+ * @param clock_names names of timers
+ * @param clock_times times of timers
+ */
 void LED_API::save_new_effect(String &newName, String &script, uint8_t clock_amount, String* clock_names, uint32_t* clock_times) {
     String id = String(numEffect + 1);
     Config::saveNewEffect(newName, id, script, clock_amount, clock_names, clock_times);
@@ -98,6 +114,16 @@ void LED_API::save_new_effect(String &newName, String &script, uint8_t clock_amo
     play_effect(id);
 }
 
+/**
+ * Saves new Effect Parameters for an already existing project
+ * Plays the saved Effect
+ *
+ * @param id ID of the Effect to be saved
+ * @param script Lua Script describing the effect
+ * @param clock_amount amount of timers
+ * @param clock_names names of timers
+ * @param clock_times times of timers
+ */
 void LED_API::save_effect(String &id, String &script, uint8_t clock_amount, String* clock_names, uint32_t* clock_times) {
     Config::saveEffect(id, script, clock_amount, clock_names, clock_times);
 
@@ -105,6 +131,13 @@ void LED_API::save_effect(String &id, String &script, uint8_t clock_amount, Stri
     play_effect(id);
 }
 
+/**
+ * Sets brightness of LED-Strip
+ * and executes FastLED.show() to refresh Strip
+ * Saves new brightness to MainConfig
+ *
+ * @param brightnessPerc New Brightness level in Percent
+ */
 void LED_API::setBrightness(uint8_t brightnessPerc) {
     if (brightnessPerc < 0 || brightnessPerc > 100) {
         return;
@@ -198,6 +231,12 @@ bool LED_API::find_preset_by_id(Color_Preset_Key *preset, const String &presetID
     return false;
 }
 
+/**
+ * Sets the given Effect to be played
+ * Saves effect id to Main Config
+ *
+ * @param effect
+ */
 void LED_API::set_new_effect(Effect effect) {
     setIsEffect();
 
@@ -231,6 +270,8 @@ void LED_API::update_homespan(int characteristic) {
     if (toUpdateHomespan == NO_UPDATE) {
         toUpdateHomespan = characteristic;
     }
+
+    // TODO integrate update Queue
 }
 
 //------------------------------------------------------------------------------

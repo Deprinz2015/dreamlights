@@ -136,7 +136,7 @@ void Config::saveMainConfig(const MainConfig &config) {
     FileHandler::save_json_doc(main_config_file_name, obj);
 }
 
-void Config::saveColorPreset(String name, String id, Color_Preset preset) {
+void Config::saveColorPreset(const String& presetName, const String& id, Color_Preset preset) {
     // Save preset file
     String filename = preset_file_template;
     filename.replace("{id}", id);
@@ -174,7 +174,7 @@ void Config::saveColorPreset(String name, String id, Color_Preset preset) {
         index++;
     }
 
-    presets[index].name = name;
+    presets[index].name = presetName;
     presets[index].id   = id;
 
     preset_amount = index + 1;
