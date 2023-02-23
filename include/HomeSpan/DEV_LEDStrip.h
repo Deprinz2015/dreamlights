@@ -5,10 +5,10 @@
 #ifndef MAINCODE_DEV_LEDSTRIP_H
 #define MAINCODE_DEV_LEDSTRIP_H
 
+#define CUSTOM_CHAR_HEADER
 #include "HomeSpan.h"
 #include "LED_API.h"
-
-CUSTOM_CHAR(EffectNumber, E863F10A-079E-48FF-8F27-9C2605A29F52, PR+PW+EV, UINT16, 0, 0, 1, false);
+#include "CustomCharacteristics.h"
 
 struct DEV_LED_Strip : Service::LightBulb {
     DEV_LED_Strip(LED_API *ledApi);
@@ -17,7 +17,7 @@ struct DEV_LED_Strip : Service::LightBulb {
     SpanCharacteristic *h;
     SpanCharacteristic *s;
     SpanCharacteristic *v;
-    SpanCharacteristic *effect;
+    Characteristic::EffectNumber* effect;
 
     LED_API *ledApi;
 

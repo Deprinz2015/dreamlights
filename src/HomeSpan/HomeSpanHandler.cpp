@@ -7,6 +7,7 @@
 #include "HomeSpan.h"
 #include "HomeSpan/DEV_Identify.h"
 #include "HomeSpan/DEV_LEDStrip.h"
+#include "HomeSpan/CustomCharacteristics.h"
 
 void HomeSpanHandler::setup_homespan(void(*wifiCallback)(), LED_API *ledApi) {
     homeSpan.enableOTA();
