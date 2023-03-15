@@ -6,12 +6,13 @@
 #define MAINCODE_DEV_LEDSTRIP_H
 
 #define CUSTOM_CHAR_HEADER
+
 #include "HomeSpan.h"
 #include "LED_API.h"
 #include "CustomCharacteristics.h"
 
 struct DEV_LED_Strip : Service::LightBulb {
-    DEV_LED_Strip(LED_API *ledApi);
+    explicit DEV_LED_Strip(LED_API *ledApi);
 
     SpanCharacteristic *power;
     SpanCharacteristic *h;
@@ -23,7 +24,7 @@ struct DEV_LED_Strip : Service::LightBulb {
 
     boolean update() override;
     void loop() override;
-    void setInitValues();
+    void setInitValues() const;
 };
 
 #endif //MAINCODE_DEV_LEDSTRIP_H

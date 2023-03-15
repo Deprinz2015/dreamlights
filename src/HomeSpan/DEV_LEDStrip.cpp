@@ -60,38 +60,39 @@ boolean DEV_LED_Strip::update() {
 }
 
 void DEV_LED_Strip::loop() {
-    if (ledApi->toUpdateHomespan == NO_UPDATE) {
-        return;
+    if(ledApi->updateCharacteristics[UPDATE_POWER]) {
+        power->setVal(ledApi->turnedOn);
+
+        ledApi->updateCharacteristics[UPDATE_POWER] = false;
     }
 
-    switch (ledApi->toUpdateHomespan) {
-        case UPDATE_POWER: {
-            power->setVal(ledApi->turnedOn);
-            break;
-        }
-        case UPDATE_COLOR: {
-            CHSV newColor = rgb2hsv_approximate(config.color);
-            h->setVal(newColor.hue / 0.71);
-            s->setVal(newColor.sat / 2.55);
-            break;
-        }
-        case UPDATE_BRIGHTNESS: {
-            if (config.current_brightness == config.max_brightness) {
-                v->setVal(100);
-            } else {
-                v->setVal(config.current_brightness / config.max_brightness);
-            }
-            break;
-        }
-        case UPDATE_EFFECT: {
-            // TODO Update effectNumber
-        }
+    if(ledApi->updateCharacteristics[UPDATE_COLOR]) {
+        CHSV newColor = rgb2hsv_approximate(config.color);
+        h->setVal(newColor.hue / 0.71);
+        s->setVal(newColor.sat / 2.55);
+
+        ledApi->updateCharacteristics[UPDATE_COLOR] = false;
     }
 
-    ledApi->toUpdateHomespan = NO_UPDATE;
+    if(ledApi->updateCharacteristics[UPDATE_COLOR]) {
+        if (config.current_brightness == config.max_brightness) {
+            v->setVal(100);
+        } else {
+            v->setVal(config.current_brightness / config.max_brightness);
+        }
+
+        ledApi->updateCharacteristics[UPDATE_COLOR] = false;
+    }
+
+    if(ledApi->updateCharacteristics[UPDATE_EFFECT]) {
+        Serial.print("New Effect: ");
+        Serial.println(ledApi->currentEffect.name);
+        Serial.println("Updated Effect");
+        ledApi->updateCharacteristics[UPDATE_EFFECT] = false;
+    }
 }
 
-void DEV_LED_Strip::setInitValues() {
+void DEV_LED_Strip::setInitValues() const {
     power->setVal(ledApi->turnedOn);
     CHSV newColor = rgb2hsv_approximate(config.color);
     h->setVal(newColor.hue / 0.71);

@@ -8,8 +8,7 @@
 #include "HomeSpan.h"
 
 struct DEV_Identify : Service::AccessoryInformation {
-    DEV_Identify(const char *name, const char *manu, const char *sn, const char *model, const char *version,
-                 int nBlinks);
+    DEV_Identify(const char *name, const char *manu, const char *sn, const char *model, const char *version);
 
     SpanCharacteristic *identify;
 };

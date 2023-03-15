@@ -26,7 +26,14 @@ public:
     Color_Preset_Key *allPresets;
     int numPreset;
     bool turnedOn = POWER_OFF;
-    int toUpdateHomespan = NO_UPDATE;
+
+    // TODO When adding new Characteristic to Sync with Homespan, add it to this array
+    bool updateCharacteristics[4] = {
+            false, // Power
+            false, // Color
+            false, // Brightness
+            false  // Effect
+    };
 
     void play_effect(const String& id);
     void display_solid_color(uint32_t color);

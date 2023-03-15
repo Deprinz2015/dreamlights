@@ -19,12 +19,12 @@ void HomeSpanHandler::setup_homespan(void(*wifiCallback)(), LED_API *ledApi) {
     homeSpan.begin(Category::Lighting, "Dreamlight", host);
 
     new SpanAccessory();
-    new DEV_Identify("Bridge", "Nako", sn, "Bridge", "0.9", 3);
+    new DEV_Identify("Bridge", "Nako", sn, "Bridge", "0.9");
     new Service::HAPProtocolInformation();
     new Characteristic::Version("1.1.0");
 
     new SpanAccessory();
-    new DEV_Identify(name, "Nako", sn, model, "0.9", 3);
+    new DEV_Identify(name, "Nako", sn, model, "0.9");
     new DEV_LED_Strip(ledApi);
 }
 

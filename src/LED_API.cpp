@@ -267,11 +267,9 @@ void LED_API::set_new_preset(const Color_Preset_Key &preset) {
 }
 
 void LED_API::update_homespan(int characteristic) {
-    if (toUpdateHomespan == NO_UPDATE) {
-        toUpdateHomespan = characteristic;
+    if(!updateCharacteristics[characteristic]) {
+        updateCharacteristics[characteristic] = true;
     }
-
-    // TODO integrate update Queue
 }
 
 //------------------------------------------------------------------------------

@@ -38,13 +38,13 @@
 
 //--------------------------------------------------------------------------------------------------
 
-// Status Constants for HomeSpan controlling
+// Status Constants (Indices) for HomeSpan controlling
 
 #define NO_UPDATE (-1)
-#define UPDATE_POWER 1
-#define UPDATE_COLOR 2
-#define UPDATE_BRIGHTNESS 3
-#define UPDATE_EFFECT 4
+#define UPDATE_POWER 0
+#define UPDATE_COLOR 1
+#define UPDATE_BRIGHTNESS 2
+#define UPDATE_EFFECT 3
 
 //--------------------------------------------------------------------------------------------------
 
