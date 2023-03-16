@@ -2,11 +2,9 @@
 // Created by Niklas Koll on 16.07.22.
 //
 
-#include <DNSServer.h>
 #include "HomeSpan/HomeSpanHandler.h"
 #include "HomeSpan.h"
-#include "HomeSpan/DEV_Identify.h"
-#include "HomeSpan/DEV_LEDStrip.h"
+#include "HomeSpan/LEDStrip_Device.h"
 #include "HomeSpan/CustomCharacteristics.h"
 
 void HomeSpanHandler::setup_homespan(void(*wifiCallback)(), LED_API *ledApi) {
@@ -19,12 +17,7 @@ void HomeSpanHandler::setup_homespan(void(*wifiCallback)(), LED_API *ledApi) {
     homeSpan.begin(Category::Lighting, "Dreamlight", host);
 
     new SpanAccessory();
-    new DEV_Identify("Bridge", "Nako", sn, "Bridge", "0.9");
-    new Service::HAPProtocolInformation();
-    new Characteristic::Version("1.1.0");
-
-    new SpanAccessory();
-    new DEV_Identify(name, "Nako", sn, model, "0.9");
+    new Characteristic::Identify();
     new DEV_LED_Strip(ledApi);
 }
 

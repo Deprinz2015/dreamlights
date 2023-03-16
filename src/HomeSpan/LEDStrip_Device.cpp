@@ -2,7 +2,7 @@
 // Created by Niklas Koll on 16.07.22.
 //
 
-#include "HomeSpan/DEV_LEDStrip.h"
+#include "HomeSpan/LEDStrip_Device.h"
 #include "Globals.h"
 #include "LED_API.h"
 

@@ -31,16 +31,8 @@
 
 //--------------------------------------------------------------------------------------------------
 
-// WiFi Configuration for AP-Mode
-
-#define WIFI_SSID "Dreamlights"
-#define WIFI_PASS "12345678"
-
-//--------------------------------------------------------------------------------------------------
-
 // Status Constants (Indices) for HomeSpan controlling
 
-#define NO_UPDATE (-1)
 #define UPDATE_POWER 0
 #define UPDATE_COLOR 1
 #define UPDATE_BRIGHTNESS 2
@@ -50,9 +42,10 @@
 
 // Definition of HomeSpan-Device Parameters
 extern const char *host;
-extern const char *model;
-extern const char *sn;
-extern const char *name;
+// TODO check if still needed, otherwise completetly remove
+//extern const char *model;
+//extern const char *sn;
+//extern const char *name;
 
 //--------------------------------------------------------------------------------------------------
 
