@@ -42,10 +42,9 @@
 
 // Definition of HomeSpan-Device Parameters
 extern const char *host;
-// TODO check if still needed, otherwise completetly remove
-//extern const char *model;
-//extern const char *sn;
-//extern const char *name;
+extern const char *model;
+extern const char *sn;
+extern const char *name;
 
 //--------------------------------------------------------------------------------------------------
 

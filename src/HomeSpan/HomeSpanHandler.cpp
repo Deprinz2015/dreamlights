@@ -5,6 +5,7 @@
 #include "HomeSpan/HomeSpanHandler.h"
 #include "HomeSpan.h"
 #include "HomeSpan/LEDStrip_Device.h"
+#include "HomeSpan/LEDStrip_Identify.h"
 #include "HomeSpan/CustomCharacteristics.h"
 
 void HomeSpanHandler::setup_homespan(void(*wifiCallback)(), LED_API *ledApi) {
@@ -17,8 +18,8 @@ void HomeSpanHandler::setup_homespan(void(*wifiCallback)(), LED_API *ledApi) {
     homeSpan.begin(Category::Lighting, "Dreamlight", host);
 
     new SpanAccessory();
-    new Characteristic::Identify();
-    new DEV_LED_Strip(ledApi);
+    new LEDStrip_Identify(name, "Nako", sn, model, "0.9");
+    new LEDStrip_Device(ledApi);
 }
 
 void HomeSpanHandler::homespan_loop() {

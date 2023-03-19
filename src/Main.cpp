@@ -38,11 +38,11 @@ void setup() {
     Config::loadMainConfig(&config);
     Serial.println("Loaded main config");
 
-    HomeSpanHandler::setup_homespan(setup_server, &leds);
-    Serial.println("Setup homespan");
-
     setup_leds();
     Serial.println("Setup leds");
+
+    HomeSpanHandler::setup_homespan(setup_server, &leds);
+    Serial.println("Setup homespan");
 
     Serial.println("Setup Complete");
 }

@@ -88,7 +88,7 @@ void HTTP_API::play_effect() {
     }
     leds.play_effect(id);
     send_response(200, "Effect played");
-    // TODO Update Homespan
+    leds.update_homespan(UPDATE_EFFECT);
 }
 
 void HTTP_API::save_new_effect() {

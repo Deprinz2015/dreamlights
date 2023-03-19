@@ -6,18 +6,24 @@
 #include "Globals.h"
 #include "LED_API.h"
 
-DEV_LED_Strip::DEV_LED_Strip(LED_API *ledApi) {
+LEDStrip_Device::LEDStrip_Device(LED_API *ledApi) {
+    this->ledApi = ledApi;
+
+    Serial.print("Effect Range: 0 - ");
+    Serial.println(ledApi->numEffect-1);
+
     power = new Characteristic::On();
     h = new Characteristic::Hue(0);
     s = new Characteristic::Saturation(0);
     v = new Characteristic::Brightness(100);
-    effect = new Characteristic::EffectNumber();
-    this->ledApi = ledApi;
+    effect = (new Characteristic::EffectNumber())
+            ->setDescription("Effect Number")
+            ->setRange(0, ledApi->numEffect-1, 1);
 
     setInitValues();
 }
 
-boolean DEV_LED_Strip::update() {
+boolean LEDStrip_Device::update() {
     if (power->updated()) {
         ledApi->set_power(power->getNewVal<bool>());
     }
@@ -53,13 +59,14 @@ boolean DEV_LED_Strip::update() {
         ledApi->display_solid_color(color_raw);
     }
     else if(effectNumber != 0) {
-        // TODO Update effect
+        Serial.println("Changed Effect through Homespan:");
+        Serial.println(effectNumber);
     }
 
     return true;
 }
 
-void DEV_LED_Strip::loop() {
+void LEDStrip_Device::loop() {
     if(ledApi->updateCharacteristics[UPDATE_POWER]) {
         power->setVal(ledApi->turnedOn);
 
@@ -85,6 +92,7 @@ void DEV_LED_Strip::loop() {
     }
 
     if(ledApi->updateCharacteristics[UPDATE_EFFECT]) {
+        effect->setVal(ledApi->currentEffect.id.toInt());
         Serial.print("New Effect: ");
         Serial.println(ledApi->currentEffect.name);
         Serial.println("Updated Effect");
@@ -92,7 +100,7 @@ void DEV_LED_Strip::loop() {
     }
 }
 
-void DEV_LED_Strip::setInitValues() const {
+void LEDStrip_Device::setInitValues() const {
     power->setVal(ledApi->turnedOn);
     CHSV newColor = rgb2hsv_approximate(config.color);
     h->setVal(newColor.hue / 0.71);

@@ -11,14 +11,14 @@
 #include "LED_API.h"
 #include "CustomCharacteristics.h"
 
-struct DEV_LED_Strip : Service::LightBulb {
-    explicit DEV_LED_Strip(LED_API *ledApi);
+struct LEDStrip_Device : Service::LightBulb {
+    explicit LEDStrip_Device(LED_API *ledApi);
 
     SpanCharacteristic *power;
     SpanCharacteristic *h;
     SpanCharacteristic *s;
     SpanCharacteristic *v;
-    Characteristic::EffectNumber* effect;
+    SpanCharacteristic *effect;
 
     LED_API *ledApi;
 
