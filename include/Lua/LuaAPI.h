@@ -10,35 +10,24 @@
 
 struct Lua_Methods {
     static int setHue(lua_State *L);
-
     static int setRed(lua_State *L);
-
     static int setGreen(lua_State *L);
-
     static int setBlue(lua_State *L);
 
     static int addHue(lua_State *L);
-
     static int addRed(lua_State *L);
-
     static int addGreen(lua_State *L);
-
     static int addBlue(lua_State *L);
 
     static int setHSV(lua_State *L);
-
     static int setRGB(lua_State *L);
 
     static int getLed(lua_State *L);
-
     static int getSize(lua_State *L);
 
     static int fadeToBlack(lua_State *L);
-
     static int fadeAllToBlack(lua_State *L);
-
     static int randomIndex(lua_State *L);
-
     static int copyLed(lua_State *L);
 };
 
@@ -46,9 +35,7 @@ struct Lua_Functions {
     static int getArray(lua_State *L);
 
     static int l_random8(lua_State *L);
-
     static int l_random16(lua_State *L);
-
     static int l_randomBool(lua_State *L);
 
     static int showLeds(lua_State *L);

@@ -22,6 +22,7 @@ struct HTTP_API {
     static void set_power();
 
     static void send_response(int code, const String &message);
+    // TODO Add HTTP Endpoint to get current State of LEDs
 
 private:
     static bool getBody(String &value);

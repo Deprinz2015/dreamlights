@@ -35,25 +35,25 @@ public:
             false  // Effect
     };
 
-    void play_effect(const String& id);
     void display_solid_color(uint32_t color);
     void set_power(bool power);
+    void setBrightness(uint8_t brightness);
+
+    void play_effect(const String& id);
+    String save_new_effect(String &name, String &script, uint8_t clock_amount, String* clock_names, uint32_t* clock_times);
+    void save_effect(String &id, String &script, uint8_t clock_amount, String* clock_names, uint32_t* clock_times);
+    void set_new_effect(Effect effect);
+
+
+    void loadPreset(const String& id);
     void color_segment(uint16_t from, uint16_t to, uint32_t color);
     void save_preset(String &name);
-    void save_new_effect(String &name, String &script, uint8_t clock_amount, String* clock_names, uint32_t* clock_times);
-    void save_effect(String &id, String &script, uint8_t clock_amount, String* clock_names, uint32_t* clock_times);
-    void setBrightness(uint8_t brightness);
-    void display_preset();
-    void updatePreset();
-    void loadPreset(const String& id);
+    void set_new_preset(const Color_Preset_Key& preset);
 
     void runPattern();
 
     bool find_effect_by_id(Effect &effect, const String &effectName) const;
     bool find_preset_by_id(Color_Preset_Key *preset, const String &presetName) const;
-
-    void set_new_effect(Effect effect);
-    void set_new_preset(const Color_Preset_Key& preset);
 
     void update_homespan(int characteristic);
 
@@ -64,6 +64,8 @@ private:
     void setIsSegmentedColor();
     void setIsEffect();
     void display_segment(uint16_t from, uint16_t to, uint32_t color);
+    void display_preset();
+    void updatePreset();
 };
 
 #endif //MAINCODE_LED_API_H

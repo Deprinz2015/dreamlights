@@ -19,6 +19,7 @@ LEDStrip_Device::LEDStrip_Device(LED_API *ledApi) {
     effect = (new Characteristic::EffectNumber())
             ->setDescription("Effect Number")
             ->setRange(0, ledApi->numEffect-1, 1);
+    // TODO Add Characteristic for Presets
 
     setInitValues();
 }

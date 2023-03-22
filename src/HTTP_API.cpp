@@ -77,6 +77,7 @@ void HTTP_API::color_segment() {
     leds.color_segment(start_index, end_index, color_value);
     send_response(200, "Segment colored");
     // TODO Update Homespan
+    // Change Preset number to make it obvious that its not saved (zb. -1)
 }
 
 void HTTP_API::play_effect() {
@@ -130,8 +131,9 @@ void HTTP_API::save_new_effect() {
         clockIndex++;
     }
 
-    leds.save_new_effect(effectName, script, clockIndex, clock_names, clock_times);
-    // TODO update Homespan
+    String newId = leds.save_new_effect(effectName, script, clockIndex, clock_names, clock_times);
+    leds.play_effect(newId);
+    leds.update_homespan(UPDATE_EFFECT);
 
     send_response(200, "effect saved");
 }
@@ -176,7 +178,8 @@ void HTTP_API::save_effect() {
     }
 
     leds.save_effect(effectID, script, clockIndex, clock_names, clock_times);
-    // TODO update Homespan
+    leds.play_effect(effectID);
+    leds.update_homespan(UPDATE_EFFECT);
 
     send_response(200, "effect saved");
 }
@@ -223,17 +226,22 @@ void HTTP_API::set_power() {
 
     if(power == "on") {
         leds.set_power(POWER_ON);
-        send_response(200, "Power on");
     } else if(power == "off") {
         leds.set_power(POWER_OFF);
-        send_response(200, "Power off");
     } else {
         send_response(400, "Bad Request, power must be 'on' or 'off'");
         return;
     }
 
     leds.update_homespan(UPDATE_POWER);
+
+    send_response(200, "Power " + power);
 }
+
+// TODO HTTP Endpoint to get current State of LEDs
+//void HTTP_API::get_current_status() {
+//
+//}
 
 void HTTP_API::send_response(int code, const String &message) {
     String part1 = R"({"message": ")";

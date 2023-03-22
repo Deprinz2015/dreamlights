@@ -19,6 +19,8 @@ struct LEDStrip_Device : Service::LightBulb {
     SpanCharacteristic *s;
     SpanCharacteristic *v;
     SpanCharacteristic *effect;
+    // TODO add Characteristic for Preset
+//    SpanCharacteristic *preset;
 
     LED_API *ledApi;
 

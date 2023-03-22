@@ -98,25 +98,24 @@ void LED_API::save_preset(String &newName) {
 
 /**
  * Saves a new Effect with the given parameters
- * Plays the newly saved effect
  *
  * @param newName Name of the effect
  * @param script Lua Script describing the effect
  * @param clock_amount amount of timers
  * @param clock_names names of timers
  * @param clock_times times of timers
+ * @returns id ID of the newly created Effect
  */
-void LED_API::save_new_effect(String &newName, String &script, uint8_t clock_amount, String* clock_names, uint32_t* clock_times) {
+String LED_API::save_new_effect(String &newName, String &script, uint8_t clock_amount, String* clock_names, uint32_t* clock_times) {
     String id = String(numEffect + 1);
     Config::saveNewEffect(newName, id, script, clock_amount, clock_names, clock_times);
 
     numEffect = Config::loadEffectList(allEffects);
-    play_effect(id);
+    return id;
 }
 
 /**
  * Saves new Effect Parameters for an already existing project
- * Plays the saved Effect
  *
  * @param id ID of the Effect to be saved
  * @param script Lua Script describing the effect
@@ -128,7 +127,6 @@ void LED_API::save_effect(String &id, String &script, uint8_t clock_amount, Stri
     Config::saveEffect(id, script, clock_amount, clock_names, clock_times);
 
     numEffect = Config::loadEffectList(allEffects);
-    play_effect(id);
 }
 
 /**

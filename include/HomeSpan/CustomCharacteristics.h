@@ -6,5 +6,6 @@
 #define DREAMLIGHTS_CUSTOMCHARACTERISTICS_H
 
 CUSTOM_CHAR(EffectNumber, 42c58cf8-bea1-47de-b164-d4f58f772345, PR+PW+EV, UINT16, 0, 0, 1, false);
+// TODO Add Characteristic for Presets
 
 #endif //DREAMLIGHTS_CUSTOMCHARACTERISTICS_H
