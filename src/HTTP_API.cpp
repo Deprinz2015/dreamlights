@@ -238,11 +238,19 @@ void HTTP_API::set_power() {
     send_response(200, "Power " + power);
 }
 
-// TODO HTTP Endpoint to get current State of LEDs
-//void HTTP_API::get_current_status() {
-//
-//}
+void HTTP_API::get_current_status() {
+    // TODO Implement Endpoint
 
+    // Whats in the response:
+    // 1. current brightness
+    // 2. current mode (effect, solid color, preset)
+    // 3. if effect/preset -> effect-(preset-)id
+    // 4. if solid color -> color-value
+}
+
+// TODO redo JSON ansers
+// Maybe use helper methods to build the json constructs
+// more general method to return stuff
 void HTTP_API::send_response(int code, const String &message) {
     String part1 = R"({"message": ")";
     if(code > 400) {
