@@ -248,7 +248,7 @@ void HTTP_API::get_current_status() {
     // 4. if solid color -> color-value
 }
 
-// TODO redo JSON ansers
+// TODO redo JSON answers
 // Maybe use helper methods to build the json constructs
 // more general method to return stuff
 void HTTP_API::send_response(int code, const String &message) {
