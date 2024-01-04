@@ -50,6 +50,13 @@ void setup() {
 void loop() {
     HomeSpanHandler::homespan_loop();
 
+    // TODO Warum muss das?
+    // Sowohl Presets, als auch solide Farben können auch über die Lua-Skripte ausgeführt werden.
+    // der Timer kann auch auf hohe Werte (zb > 10sek) gesetzt werden, um performance zu schonen
+    // Vorteil: es gibt nur die Effekte, die über die Namen den Farben/Presets zugeordnet werden kann.
+    // -> keine Sonderbehandlung mehr => einfacher, lesbarer Code
+    // -> Das meiste funktioniert schon, die besondere Logik für die Presets kann in App ausgelagert werden
+    // -> Für Farben sollte trotzdem (aufgrund des Hex-Wert) eigene Logik gelten
     if (!config.is_solid_color && !config.is_segmented_color && leds.turnedOn) {
         leds.runPattern();
     }
